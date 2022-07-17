@@ -1,3 +1,6 @@
+
+local undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+
 local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
@@ -20,7 +23,7 @@ local options = {
   -- termguicolors = true,                    -- set term gui colors (most terminals support this)
   timeoutlen = 100,                        -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true,                         -- enable persistent undo
-  undodir = "/home/diwash/.config/nvim/undodir",
+  undodir = undodir,
   updatetime = 300,                        -- faster completion (4000ms default)
   writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
   expandtab = true,                        -- convert tabs to spaces
