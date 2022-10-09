@@ -10,4 +10,7 @@ require "user.autopairs"
 require "user.nvim-tree"
 require "user.bufferline"
 require "user.lualine"
+require "user.autocommands"
+require "user.toggleterm"
+require "user.dap"
 

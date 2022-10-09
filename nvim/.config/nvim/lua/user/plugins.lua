@@ -55,6 +55,7 @@ return packer.startup(function(use)
 
     -- colorschemes
     use "rebelot/kanagawa.nvim"
+    use "ellisonleao/gruvbox.nvim"
 
     -- cmp plugins
     use "hrsh7th/nvim-cmp" -- The completion engine
@@ -71,6 +72,12 @@ return packer.startup(function(use)
     use "neovim/nvim-lspconfig"
     use "williamboman/nvim-lsp-installer"
 
+    -- Debugging
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
+    use "theHamsta/nvim-dap-virtual-text"
+    use "nvim-telescope/telescope-dap.nvim"
+
     -- Telescope
     use "nvim-telescope/telescope.nvim"
 
@@ -79,6 +86,9 @@ return packer.startup(function(use)
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
     }
+
+    use "cdelledonne/vim-cmake"
+    use "akinsho/toggleterm.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
