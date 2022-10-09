@@ -80,6 +80,7 @@ return packer.startup(function(use)
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
+    use "akinsho/toggleterm.nvim"
 
     -- Treesitter
     use {
@@ -88,7 +89,6 @@ return packer.startup(function(use)
     }
 
     use "cdelledonne/vim-cmake"
-    use "akinsho/toggleterm.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

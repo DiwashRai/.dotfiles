@@ -23,6 +23,10 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<leader>h", "<C-w>h", opts)
+keymap("n", "<leader>j", "<C-w>j", opts)
+keymap("n", "<leader>k", "<C-w>k", opts)
+keymap("n", "<leader>l", "<C-w>l", opts)
 
 -- File explorer left
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
@@ -57,7 +61,8 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- Telescope shortcuts --
 keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 -- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<c-g>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>r", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>g", "<cmd>:lua _LAZYGIT_TOGGLE()<cr>", opts)
 
 -- CMake
 keymap("n", "<leader>cg", ":CMakeGenerate<CR>", opts)

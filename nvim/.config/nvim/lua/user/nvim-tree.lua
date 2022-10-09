@@ -15,6 +15,7 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
+  open_on_setup = true,
   update_focused_file = {
     enable = true,
     update_cwd = false,
