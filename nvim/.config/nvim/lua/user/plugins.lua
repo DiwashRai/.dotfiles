@@ -69,8 +69,9 @@ return packer.startup(function(use)
     use "rafamadriz/friendly-snippets" -- bunch of snippets to use
 
     -- Lsp
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use "neovim/nvim-lspconfig"
-    use "williamboman/nvim-lsp-installer"
 
     -- Debugging
     use "mfussenegger/nvim-dap"
@@ -88,6 +89,7 @@ return packer.startup(function(use)
       run = ":TSUpdate",
     }
 
+    -- Build system
     use "cdelledonne/vim-cmake"
 
     -- Automatically set up your configuration after cloning packer.nvim

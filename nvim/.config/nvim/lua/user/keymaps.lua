@@ -1,7 +1,5 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = { silent = true }
-
 local keymap = vim.api.nvim_set_keymap
 
 -- Remap space as leader key
@@ -19,10 +17,6 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<leader>h", "<C-w>h", opts)
 keymap("n", "<leader>j", "<C-w>j", opts)
 keymap("n", "<leader>k", "<C-w>k", opts)
@@ -59,10 +53,22 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Telescope shortcuts --
-keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
--- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<leader>r", "<cmd>Telescope live_grep<cr>", opts)
+--keymap("n", "<leader>f", "<cmd>Telescope find_files()<cr>", opts)
+keymap(
+    "n",
+    "<leader>f",
+    ":lua require('telescope.builtin').find_files({find_command={'rg', '--ignore', '-L', '--hidden', '--files'}})<cr>",
+    opts
+)
+keymap(
+    "n",
+    "<leader>r",
+    ":lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-L'}})<cr>",
+    opts
+)
+keymap("n", "<S-b>", "<cmd>Telescope buffers<cr>", opts)
 keymap("n", "<leader>g", "<cmd>:lua _LAZYGIT_TOGGLE()<cr>", opts)
+keymap("n", "<C-h>", "<cmd>Telescope help_tags<cr>", opts)
 
 -- CMake
 keymap("n", "<leader>cg", ":CMakeGenerate<CR>", opts)
