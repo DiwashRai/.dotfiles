@@ -14,4 +14,5 @@ require "user.lualine"
 require "user.autocommands"
 require "user.toggleterm"
 require "user.dap"
+require "user.configure-plugins"
 

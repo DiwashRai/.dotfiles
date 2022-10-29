@@ -79,9 +79,10 @@ return packer.startup(function(use)
     use "theHamsta/nvim-dap-virtual-text"
     use "nvim-telescope/telescope-dap.nvim"
 
-    -- Telescope
+    -- Telescope/Navigation
     use "nvim-telescope/telescope.nvim"
     use "akinsho/toggleterm.nvim"
+    use "https://github.com/ggandor/leap.nvim"
 
     -- Treesitter
     use {
