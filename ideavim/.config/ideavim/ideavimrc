@@ -1,0 +1,26 @@
+
+""" Map leader to space --------
+let mapleader= " "
+
+""" Plugins --------------------
+set NERDTree
+set easymotion
+
+""" Common settings ------------
+set scrolloff=8
+set incsearch
+set showmode
+
+""" Mappings -------------------
+map <leader>h <C-w>h
+map <leader>j <C-w>j
+map <leader>k <C-w>k
+map <leader>l <C-w>l
+
+map <leader>f <Action>(GotoFile)
+map <leader>b <Action>(ToggleLineBreakpoint)
+
+map <leader>e :NERDTreeToggle<cr>
+map s <Plug>(easymotion-f)
+map S <Plug>(easymotion-F)
+
