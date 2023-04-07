@@ -10,6 +10,9 @@ set easymotion
 set scrolloff=8
 set incsearch
 set showmode
+set relativenumber
+set number
+set clipboard+=unnamed
 
 """ Mappings -------------------
 map <leader>h <C-w>h
@@ -21,6 +24,8 @@ map <leader>f <Action>(GotoFile)
 map <leader>b <Action>(ToggleLineBreakpoint)
 
 map <leader>e :NERDTreeToggle<cr>
-map s <Plug>(easymotion-f)
-map S <Plug>(easymotion-F)
+""" bidirectional search on char
+map s <Plug>(easymotion-bd-f)
+""" bidrection search on word
+map S <Plug>(easymotion-bd-w)
 
