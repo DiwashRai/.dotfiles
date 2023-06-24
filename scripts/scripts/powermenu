@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Define the options for dmenu
+options=("Shutdown" "Logout" "Restart")
+
+# Prompt the user to select an option using dmenu
+selected_option=$(printf '%s\n' "${options[@]}" | rofi -theme-str 'window {width: 20em;} listview {lines: 3;}' -dmenu -i -p "Select an option:")
+
+# Perform the selected action
+case $selected_option in
+    "Shutdown")
+        systemctl poweroff
+        ;;
+    "Logout")
+        loginctl terminate-session $XDG_SESSION_ID
+        ;;
+    "Restart")
+        systemctl reboot
+        ;;
+    *)
+        echo "Invalid option selected."
+        ;;
+esac
