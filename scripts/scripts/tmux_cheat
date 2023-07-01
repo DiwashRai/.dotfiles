@@ -1,0 +1,75 @@
+#!/bin/bash
+# Define your cheat sheet
+cheatSheet="
+Keybinds/Command                      Description
+tmux                                  start new session
+tmux new -s <session-name>            start new session with name
+tmux ls                               list all sessions
+tmux attach -t <target-session>       re-attach to a session
+tmux attach -d -t <target-session>    re-attach to a session (and detach it from elsewhere)
+tmux kill-session -t <target-sess>    Delete session
+[CTRL] + b,<dquote>                   split horizontal
+[CTRL] + b,%                          split vertical
+[CTRL] + b,o                          next pane
+[CTRL] + b,;                          previous pane
+[CTRL] + b,q                          show pane numbers
+[CTRL] + b,z                          toggle pane zoom
+[CTRL] + b,!                          convert pane into window
+[CTRL] + b,x                          kill current pane
+[CTRL] + b,[CTRL] + 0                 swap panes
+[CTRL] + b,t                          display clock
+[CTRL] + b,{                          move to previous pane
+[CTRL] + b,}                          move to next pane
+[CTRL] + b,<space>                    toggle between pane layouts
+[CTRL] + b,<up>                       Resize pane taller
+[CTRL] + b,<down>                     Resize pane smaller
+[CTRL] + b,<left>                     Resize pane wider
+[CTRL] + b,<right>                    Resize pane narrower
+[CTRL] + b,c                          create new window
+[CTRL] + b,d                          detach from session
+[CTRL] + b,<comma>                    rename current window
+[CTRL] + b,&                          close current window
+[CTRL] + b,w                          list windows
+[CTRL] + b,p                          previous window
+[CTRL] + b,n                          next window
+"
+
+# Use rofi to display
+# chosen=$(echo -e "$cheatSheet" | rofi -dmenu -i -p 'Search Hotkey' -format i)
+$terminal --class Cheater -e sh -c "echo \"$cheatSheet\" | fzf --prompt \"Keybind: \" --border=rounded --margin=1% --color=dark --height 100% --reverse --header=\"     TMUX CHEAT SHEET\" --info=hidden --header-first"
+
+# default keys for reference
+# cheatSheet="
+# Keybinds/Command                      Description
+# tmux                                  start new session
+# tmux new -s <session-name>            start new session with name
+# tmux ls                               list all sessions
+# tmux attach -t <target-session>       re-attach to a session
+# tmux attach -d -t <target-session>    re-attach to a session (and detach it from elsewhere)
+# tmux kill-session -t <target-sess>    Delete session
+# [CTRL] + b,<dquote>                   split horizontal
+# [CTRL] + b,%                          split vertical
+# [CTRL] + b,o                          next pane
+# [CTRL] + b,;                          previous pane
+# [CTRL] + b,q                          show pane numbers
+# [CTRL] + b,z                          toggle pane zoom
+# [CTRL] + b,!                          convert pane into window
+# [CTRL] + b,x                          kill current pane
+# [CTRL] + b,[CTRL] + 0                 swap panes
+# [CTRL] + b,t                          display clock
+# [CTRL] + b,{                          move to previous pane
+# [CTRL] + b,}                          move to next pane
+# [CTRL] + b,<space>                    toggle between pane layouts
+# [CTRL] + b,<up>                       Resize pane taller
+# [CTRL] + b,<down>                     Resize pane smaller
+# [CTRL] + b,<left>                     Resize pane wider
+# [CTRL] + b,<right>                    Resize pane narrower
+# [CTRL] + b,c                          create new window
+# [CTRL] + b,d                          detach from session
+# [CTRL] + b,<comma>                    rename current window
+# [CTRL] + b,&                          close current window
+# [CTRL] + b,w                          list windows
+# [CTRL] + b,p                          previous window
+# [CTRL] + b,n                          next window
+# "
+

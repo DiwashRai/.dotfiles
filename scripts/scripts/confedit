@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Hardcoded list of directories
+declare -A conf_list
+conf_list[Neovim]="$HOME/.config/nvim/init.lua"
+conf_list[Qtile]="$HOME/.config/qtile/config.py"
+
+num_entries=${#conf_list[@]}
+
+# Extract the keys from the associative array
+key_list=$(printf "%s\n" "${!conf_list[@]}")
+
+# Run rofi in dmenu mode
+chosen_key=$(echo -e "$key_list" | rofi -dmenu -i -p "Config" -theme-str "window {width: 20em;} listview {lines: $num_entries;}")
+
+# Open selected directory in Neovim within Alacritty
+if [ -n "$chosen_key" ]; then
+    $terminal -e nvim "${conf_list[$chosen_key]}" &
+fi

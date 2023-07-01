@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Declare an associative array
+declare -A commands
+
+# Fill the array with commands. Each command is a string in the format 'command:flag'.
+# If flag is 'terminal', the command will be run in a new terminal window. Otherwise, it will be run directly.
+commands["autorandr change"]="autorandr -c"
+commands["battery-conservation status"]="notify-send \"Conversation status\" $($HOME/scripts/battery_conservation -s)"
+commands["battery-conservation enable"]="$HOME/scripts/battery_conservation -n:terminal"
+commands["disk usage show"]="df -h:terminal"
+
+# Create a menu using rofi with the keys from the associative array
+selected=$(printf '%s\n' "${!commands[@]}" | rofi -dmenu -i -p "Select a command:")
+
+# If a command description was selected, find the corresponding command and execute it.
+if [[ -n $selected ]]; then
+  # Separate the command and the flag
+  IFS=':' read -r command flag <<< "${commands[$selected]}"
+
+  # If the flag is 'terminal', run the command in a new terminal window
+  if [[ $flag == "terminal" ]]; then
+    $terminal --class rofi_quick -e bash -c "$command; exec bash"
+  # Otherwise, run the command directly
+  else
+    eval $command
+  fi
+fi
+
