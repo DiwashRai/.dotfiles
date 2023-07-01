@@ -9,13 +9,24 @@ from libqtile.lazy import lazy
 
 
 mod = "mod4"
-terminal = "alacritty"
+terminal = "kitty"
+gap_size = 5 
+widget_font = "JetBrainsMono Nerd Font"
 
 keys = [
     # Launch common apps
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("brave-browser"), desc="Launch browser"),
-    Key([mod], "p", lazy.spawn("dmenu_run"), desc="Launch dmenu"),
+
+    # rofi
+    # Key([mod], "p", lazy.spawn("rofi -show drun"), desc="Launch rofi in desktop run mode"),
+    Key(["mod1"], "space", lazy.spawn("rofi -show drun"), desc="Launch rofi in desktop run mode"),
+    Key([mod], "p", lazy.spawn(os.path.expanduser("~/scripts/quick_access")), desc="Launch rofi quick access script"),
+    Key([mod], "x", lazy.spawn(os.path.expanduser("~/scripts/powermenu")), desc="Launch rofi powermenu script"),
+    Key([mod], "c", lazy.spawn(os.path.expanduser("~/scripts/confedit")), desc="Launch rofi confedit script"),
+
+    # cheatsheets
+    Key([mod], "F2", lazy.spawn(os.path.expanduser("~/scripts/tmux_cheat")), desc="Launch tmux cheatsheet"),
 
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -33,7 +44,7 @@ keys = [
     Key([mod, "control"], "h", lazy.layout.shrink(), desc="Shrink window"),
     Key([mod, "control"], "l", lazy.layout.grow(), desc="Grow window"),
     Key([mod, "control"], "m", lazy.layout.maximize(), desc="Maximise currently focused client"),
-    Key([mod, "control"], "n", lazy.layout.normalize(), desc="Evenly distribute screen space"),
+    Key([mod, "control"], "n", lazy.layout.normalize(), desc="normalize screen space"),
 
     # Move between screens
     Key([mod], "i", lazy.next_screen(), desc="Move to next screen"),
@@ -52,7 +63,7 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod], "t", lazy.window.toggle_floating()),
+    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle between floating"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     KeyChord([mod], "z", [
@@ -64,6 +75,64 @@ keys = [
         name="Windows"
     ),
 ]
+
+def show_keys(keys):
+    """
+    print current keybindings in a pretty way for a rofi/dmenu window.
+    """
+    key_help = "{:<30} {:<30}\n".format('Keybinds', 'Description')
+    keys_ignored = (
+        "XF86AudioMute",  #
+        "XF86AudioLowerVolume",  #
+        "XF86AudioRaiseVolume",  #
+        "XF86AudioPlay",  #
+        "XF86AudioNext",  #
+        "XF86AudioPrev",  #
+        "XF86AudioStop",
+        "XF86MonBrightnessUp",
+        "XF86MonBrightnessDown",
+        "z"
+    )
+    text_replaced = {
+        "mod4": "[MOD]",  #
+        "control": "[CTRL]",  #
+        "mod1": "[ALT]",  #
+        "shift": "[SHIFT]",  #
+        "Escape": "ESC",  #
+    }
+    for k in keys:
+        if k.key in keys_ignored:
+            continue
+
+        mods = ""
+        key = ""
+        desc = k.desc.title()
+        for m in k.modifiers:
+            if m in text_replaced.keys():
+                mods += text_replaced[m] + " + "
+            else:
+                mods += m.capitalize() + " + "
+
+        if len(k.key) > 1:
+            if k.key in text_replaced.keys():
+                key = text_replaced[k.key]
+            else:
+                key = k.key.title()
+        else:
+            key = k.key
+
+        key_line = "{:<30} {}\n".format(mods + key, desc)
+        key_help += key_line
+
+    return key_help
+
+# this must be done AFTER all the keys have been defined
+cheater = terminal + " --class='Cheater' -e sh -c 'echo \"" + show_keys(
+    keys
+) + "\" | fzf --prompt=\"Search for a keybind: \" --border=rounded --margin=1% --color=dark --height 100% --reverse --header=\"       QTILE CHEAT SHEET \" --info=hidden --header-first'"
+keys.extend([
+    Key([mod], "F1", lazy.spawn(cheater), desc="Print keyboard bindings"),
+])
 
 groups = [Group(i) for i in "123456789"]
 
@@ -93,7 +162,7 @@ layout_theme = {
     "border_width": 2,
     "border_focus": '#4e8ca2',
     "border_normal": backgroundColor,
-    "margin": 10
+    "margin": gap_size
 }
 
 layouts = [
@@ -119,7 +188,7 @@ keys.extend([
 
 
 widget_defaults = dict(
-    font="JetBrainsMono Nerd Font",
+    font=widget_font,
     fontsize=14,
     padding=8,
 )
@@ -127,10 +196,8 @@ extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
-        widget.TextBox(text = u"\uE73C", fontsize = 24, font = "JetBrainsMono Nerd Font", foreground = colors[2], background=backgroundColor),
+        widget.TextBox(text = u"\uE73C", fontsize = 24, foreground = colors[2], background=backgroundColor),
         widget.GroupBox(
-            font="JetBrainsMono Nerd Font",
-            fontsize = 14,
             margin_y = 2,
             margin_x = 4,
             padding_y = 6,
@@ -154,9 +221,9 @@ def init_widgets_list():
             background = backgroundColor,
             use_mouse_wheel = False
         ),
-        widget.WindowName(font="JetBrainsMono Nerd Font"),
+        widget.WindowName(),
         widget.Sep(linewidth = 1, padding = 10, foreground = colors[5],background = backgroundColor),
-        widget.TextBox(text = "", fontsize = 14, font = "JetBrainsMono Nerd Font", foreground = colors[2]),
+        widget.TextBox(text = "", foreground = colors[2]),
         widget.CheckUpdates(
             colour_have_updates=colors[9],
             colour_no_updates=colors[5],
@@ -171,45 +238,44 @@ def init_widgets_list():
             cityid = "2643743",
             format = '{icon} {main_temp}°',
             metric = True,
-            font = "JetBrainsMono Nerd Font",
             foreground = foregroundColor,
         ),
         widget.Sep(linewidth = 0, padding = 10),
-        widget.TextBox(text = "", fontsize = 14, font = "JetBrainsMono Nerd Font", foreground = colors[7]),
+        widget.TextBox(text = "", foreground = colors[7]),
         widget.CPU(
-            font = "JetBrainsMono Nerd Font",
             update_interval = 1.0,
             format = '{load_percent}%',
             foreground = foregroundColor,
             padding = 5
         ),
         widget.Sep(linewidth = 0, padding = 10),
-        widget.TextBox(text = "", fontsize = 14, font = "JetBrainsMono Nerd Font", foreground = colors[3]),
+        widget.TextBox(text = "", foreground = colors[3]),
         widget.Memory(
-            font = "JetBrainsMonoNerdFont",
             foreground = foregroundColor,
             format = '{MemUsed: .0f}{mm} /{MemTotal: .0f}{mm}',
             measure_mem='G',
             padding = 5,
         ),
         widget.Sep(linewidth = 0, padding = 10),
-        widget.TextBox(text = "🔊", fontsize = 14, font = "JetBrainsMono Nerd Font", foreground = colors[8]),
+        widget.TextBox(text = "🔊", foreground = colors[8]),
         widget.Volume(linewidth = 0, padding = 10),
         widget.Sep(linewidth = 0, padding = 10),
-        widget.TextBox(text = "", fontsize = 14, font = "JetBrainsMono Nerd Font", foreground = colors[10]),
-        widget.Clock(format='%H:%M %a %d/%m/%y', font = "JetBrainsMono Nerd Font", padding = 5, foreground = foregroundColor),
-        widget.Systray(background = backgroundColor, icon_size = 20, padding = 4),
-        widget.Sep(linewidth = 1, padding = 10, foreground = colors[5], background = backgroundColor),
+        widget.TextBox(text = "", foreground = colors[10]),
+        widget.Clock(format='%H:%M %a %d/%m/%y', padding = 5, foreground = foregroundColor),
         widget.CurrentLayoutIcon(scale = 0.7, foreground = colors[6], background = colors[0]),
     ]
     return widgets_list
 
 def init_primary_bar():
-    return bar.Bar(widgets=init_widgets_list(), size=24)
+    widget_list = init_widgets_list()
+    # widget_list.insert(-1, widget.Sep(linewidth = 0, padding = 10))
+    # widget_list.insert(-1, widget.Battery(linewidth = 0, padding = 10, format='{char} {percent:2.0%}', charge_char='󱊥', discharge_char='󱊢', unknown_char='󱉞'))
+    widget_list.insert(-1, widget.Systray(background = backgroundColor, icon_size = 20, padding = 4))
+    widget_list.insert(-1, widget.Sep(linewidth = 1, padding = 10, foreground = colors[5], background = backgroundColor))
+    return bar.Bar(widgets=widget_list, size=24)
 
 def init_secondary_bar():
     widgets_list = init_widgets_list()
-    widgets_list = widgets_list[:-3] + widgets_list[-1:]
     return bar.Bar(widgets=widgets_list, size=24)
 
 horizontal_wallpaper = "/home/diwash/Pictures/wallpapers/cosy-tokyo.jpg"
@@ -219,16 +285,16 @@ screens = [
     Screen(
         top=init_secondary_bar(),
         wallpaper=vertical_wallpaper,
-        right=bar.Gap(12),
-        bottom=bar.Gap(12),
-        left=bar.Gap(12)
+        right=bar.Gap(gap_size),
+        bottom=bar.Gap(gap_size),
+        left=bar.Gap(gap_size)
         ),
     Screen(
         top=init_primary_bar(),
         wallpaper=horizontal_wallpaper,
-        right=bar.Gap(12),
-        bottom=bar.Gap(12),
-        left=bar.Gap(12)
+        right=bar.Gap(gap_size),
+        bottom=bar.Gap(gap_size),
+        left=bar.Gap(gap_size)
         )
     ]
 
@@ -254,15 +320,24 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(wm_class="Cheater"),
+        Match(wm_class="rofi_quick"),
     ]
 )
+
+@hook.subscribe.client_new
+def floating_dialog_sizes(window):
+    if 'Cheater' in window.get_wm_class():
+        window.width = 800
+        window.height = 1000
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
 
 @hook.subscribe.startup_once
 def autostart():
-    start_script = os.path.expanduser("~/.config/qtile/autostart.sh")
+    start_script = os.path.expanduser("~/.config/qtile/scripts/autostart.sh")
     subprocess.run([start_script])
 
 # If things like steam games want to auto-minimize themselves when losing
