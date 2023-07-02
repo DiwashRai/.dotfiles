@@ -20,8 +20,10 @@ map <leader>j <C-w>j
 map <leader>k <C-w>k
 map <leader>l <C-w>l
 
-map <leader>f <Action>(GotoFile)
+map <leader>ff <Action>(GotoFile)
 map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>fw <Action>(FindInPath)
+map <leader>ko <Action>(GotoRelated)
 
 map <leader>e :NERDTreeToggle<cr>
 """ bidirectional search on char
