@@ -1,0 +1,5 @@
+
+tmux/.config/tmux/plugins
+qtile-laptop/.config/qtile/qtile.log
+qtile-laptop/.config/qtile/__pycache__
+kitty/.config/kitty/kitty.conf.bak

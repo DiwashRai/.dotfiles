@@ -1,0 +1,13 @@
+#!/bin/bash
+# Get the current layout
+#
+layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+
+# Switch layout
+if [ "$layout" == "us" ]; then
+    setxkbmap gb
+    notify-send -u low -t 5000 'Keyboard layout switched: UK'
+else
+    setxkbmap us
+    notify-send -u low -t 5000 'Keyboard layout switched: US'
+fi

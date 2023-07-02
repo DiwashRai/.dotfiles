@@ -9,6 +9,7 @@ commands["autorandr change"]="autorandr -c"
 commands["battery-conservation status"]="notify-send \"Conversation status\" $($HOME/scripts/battery_conservation -s)"
 commands["battery-conservation enable"]="$HOME/scripts/battery_conservation -n:terminal"
 commands["disk usage show"]="df -h:terminal"
+commands["toggle keyboard layout"]="$HOME/scripts/switch_keyboard"
 
 # Create a menu using rofi with the keys from the associative array
 selected=$(printf '%s\n' "${!commands[@]}" | rofi -dmenu -i -p "Select a command:")
