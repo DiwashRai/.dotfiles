@@ -1,37 +1,46 @@
 #!/bin/bash
+
 # Define your cheat sheet
 cheatSheet="
 Keybinds/Command                      Description
+
+[CTRL] + h                            move pane left
+[CTRL] + l                            move pane right
+[CTRL] + j                            move pane down
+[CTRL] + k                            move pane up
+[SHIFT] + [ALT] + h                   previous window
+[SHIFT] + [ALT] + l                   next window
+
 tmux                                  start new session
 tmux new -s <session-name>            start new session with name
 tmux ls                               list all sessions
 tmux attach -t <target-session>       re-attach to a session
 tmux attach -d -t <target-session>    re-attach to a session (and detach it from elsewhere)
 tmux kill-session -t <target-sess>    Delete session
-[CTRL] + b,<dquote>                   split horizontal
-[CTRL] + b,%                          split vertical
-[CTRL] + b,o                          next pane
-[CTRL] + b,;                          previous pane
-[CTRL] + b,q                          show pane numbers
-[CTRL] + b,z                          toggle pane zoom
-[CTRL] + b,!                          convert pane into window
-[CTRL] + b,x                          kill current pane
-[CTRL] + b,[CTRL] + 0                 swap panes
-[CTRL] + b,t                          display clock
-[CTRL] + b,{                          move to previous pane
-[CTRL] + b,}                          move to next pane
-[CTRL] + b,<space>                    toggle between pane layouts
-[CTRL] + b,<up>                       Resize pane taller
-[CTRL] + b,<down>                     Resize pane smaller
-[CTRL] + b,<left>                     Resize pane wider
-[CTRL] + b,<right>                    Resize pane narrower
-[CTRL] + b,c                          create new window
-[CTRL] + b,d                          detach from session
-[CTRL] + b,<comma>                    rename current window
-[CTRL] + b,&                          close current window
-[CTRL] + b,w                          list windows
-[CTRL] + b,p                          previous window
-[CTRL] + b,n                          next window
+[CTRL] + [SPACE], <dquote>            split horizontal
+[CTRL] + [SPACE], %                   split vertical
+[CTRL] + [SPACE], o                   next pane
+[CTRL] + [SPACE], ;                   previous pane
+[CTRL] + [SPACE], q                   show pane numbers
+[CTRL] + [SPACE], z                   toggle pane zoom
+[CTRL] + [SPACE], !                   convert pane into window
+[CTRL] + [SPACE], x                   kill current pane
+[CTRL] + [SPACE], [CTRL] + 0          swap panes
+[CTRL] + [SPACE], t                   display clock
+[CTRL] + [SPACE], {                   move to previous pane
+[CTRL] + [SPACE], }                   move to next pane
+[CTRL] + [SPACE], <space>             toggle between pane layouts
+[CTRL] + [SPACE](hold), <up>          Resize pane taller
+[CTRL] + [SPACE](hold), <down>        Resize pane smaller
+[CTRL] + [SPACE](hold), <left>        Resize pane wider
+[CTRL] + [SPACE](hold), <right>       Resize pane narrower
+[CTRL] + [SPACE], c                   create new window
+[CTRL] + [SPACE], d                   detach from session
+[CTRL] + [SPACE], <comma>             rename current window
+[CTRL] + [SPACE], &                   close current window
+[CTRL] + [SPACE], w                   list windows
+[CTRL] + [SPACE], p                   previous window
+[CTRL] + [SPACE], n                   next window
 "
 
 # Use rofi to display
