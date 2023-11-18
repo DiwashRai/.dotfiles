@@ -15,10 +15,13 @@ set number
 set clipboard+=unnamed
 
 """ Mappings -------------------
-map <leader>h <C-w>h
-map <leader>j <C-w>j
-map <leader>k <C-w>k
-map <leader>l <C-w>l
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+xnoremap > >gv
+xnoremap < <gv
 
 map <leader>ff <Action>(GotoFile)
 map <leader>b <Action>(ToggleLineBreakpoint)

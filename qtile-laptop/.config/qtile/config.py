@@ -280,8 +280,10 @@ def init_secondary_bar():
     widgets_list = init_widgets_list()
     return bar.Bar(widgets=widgets_list, size=24)
 
-horizontal_wallpaper = "/home/diwash/Pictures/wallpapers/cosy-tokyo.jpg"
-vertical_wallpaper = "/home/diwash/Pictures/wallpapers/City Lights Reflection.jpg"
+cosy_tokyo = "/home/diwash/Pictures/wallpapers/cosy-tokyo.jpg"
+city_lights = "/home/diwash/Pictures/wallpapers/City Lights Reflection.jpg"
+pastel_sunrise = "/home/diwash/Pictures/wallpapers/pastel-sunrise.png"
+lofi_japan_streets = "/home/diwash/Pictures/wallpapers/lofi-japan-street.jpg"
 
 
 def count_active_screens():
@@ -296,7 +298,7 @@ def init_screens():
     screens = [
         Screen(
             top=init_primary_bar(),
-            wallpaper=horizontal_wallpaper,
+            wallpaper=cosy_tokyo,
             wallpaper_mode="fill",
             right=bar.Gap(gap_size),
             bottom=bar.Gap(gap_size),
@@ -307,7 +309,7 @@ def init_screens():
         screens.append(
             Screen(
                  top=init_secondary_bar(),
-                 wallpaper=horizontal_wallpaper,
+                 wallpaper=cosy_tokyo,
                  wallpaper_mode="fill",
                  right=bar.Gap(gap_size),
                  bottom=bar.Gap(gap_size),
