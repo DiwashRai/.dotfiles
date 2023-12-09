@@ -1,9 +1,9 @@
 
 local local_options = {
-  shiftwidth = 4,
-  tabstop = 4,
+  shiftwidth = 2,
+  tabstop = 2,
   expandtab = true,
-  softtabstop = 4,
+  softtabstop = 2,
   smartindent = true,
   autoindent = true,
 }

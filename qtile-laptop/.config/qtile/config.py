@@ -357,7 +357,8 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="Cheater"),
         Match(wm_class="rofi_quick"),
-        Match(wm_class="jetbrains-toolbox")
+        Match(wm_class="jetbrains-toolbox"),
+        Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb")
     ]
 )
 

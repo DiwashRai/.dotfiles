@@ -5,6 +5,9 @@ let mapleader= " "
 """ Plugins --------------------
 set NERDTree
 set easymotion
+let g:EasyMotion_do_mapping=0
+set which-key
+set notimeout
 
 """ Common settings ------------
 set scrolloff=8
@@ -13,6 +16,9 @@ set showmode
 set relativenumber
 set number
 set clipboard+=unnamed
+set ignorecase
+set smartcase
+set highlightedyank
 
 """ Mappings -------------------
 map <C-h> <C-w>h
@@ -20,17 +26,41 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+nnoremap <S-l> gt
+nnoremap <S-h> gT
+
 xnoremap > >gv
 xnoremap < <gv
 
-map <leader>ff <Action>(GotoFile)
-map <leader>b <Action>(ToggleLineBreakpoint)
-map <leader>fw <Action>(FindInPath)
-map <leader>ko <Action>(GotoRelated)
+let g:WhichKeyDesc_Search = "<leader>s Search"
+map <leader>sf <Action>(GotoFile)
+let g:WhichKeyDesc_SearchFile = "<leader>sf Search File"
+map <leader>sg <Action>(FindInPath)
+let g:WhichKeyDesc_SearchGrep = "<leader>sg Search Grep"
+map <leader>su <Action>(FindUsages)
+let g:WhichKeyDesc_SearchUsages = "<leader>su Search Usages"
 
-map <leader>e :NERDTreeToggle<cr>
+let g:WhichKeyDesc_tools = "<leader>t Tools"
+map <leader>tp <Action>(ActivateProblemsViewToolWindow)
+let g:WhichKeyDesc_tools_problems = "<leader>tp Problems"
+map <leader>tT <Action>(ActivateTODOToolWindow)
+let g:WhichKeyDesc_tools_todos = "<leader>tT Todo's"
+map <leader>tt <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_tools_terminal = "<leader>tt Terminal"
+
+map <leader><space> <Action>(RecentFiles)
+let g:WhichKeyDesc_RecentFiles = "<leader><space> Recent Files"
+map <leader>z :action ToggleDistractionFreeMode<CR>
+map <leader>b <Action>(ToggleLineBreakpoint)
+let g:WhichKeyDesc_Breakpoint = "<leader>b Toggle Breakpoint"
+map <leader>ko <Action>(GotoRelated)
+let g:WhichKeyDesc_GotoRelated = "<leader>ko Goto Related"
+
+let g:WhichKeyDesc_Refactor = "<leader>r Refactor:"
+map <leader>rr <Action>(RenameElement)
+let g:WhichKeyDesc_RefactorRename = "<leader>rr Refactor: rename"
+
 """ bidirectional search on char
 map s <Plug>(easymotion-bd-f)
 """ bidrection search on word
 map S <Plug>(easymotion-bd-w)
-
