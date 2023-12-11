@@ -13,9 +13,16 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "rcarriga/nvim-notify",
     },
-    azy = leet_arg ~= vim.fn.argv()[1],
+    lazy = leet_arg ~= vim.fn.argv()[1],
     opts = {
         -- configuration goes here
         arg = leet_arg,
+        hooks = {
+          LeetEnter = {
+            function()
+              vim.cmd.colorscheme 'rose-pine'
+            end,
+          },
+        },
     },
 }
