@@ -5,7 +5,7 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 
 vim.opt.list = true
-vim.opt.listchars = { tab = '> ', eol = '¬', lead = '·', trail = '·' }
+vim.opt.listchars = { tab = '> ', eol = '¬', lead = ' ', trail = '·' }
 vim.opt.formatoptions = "cro/"
 
 vim.opt.colorcolumn = "100"

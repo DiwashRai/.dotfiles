@@ -98,6 +98,7 @@ require('lazy').setup({
       -- Snippet Engine & its associated nvim-cmp source
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
 
@@ -177,7 +178,7 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -417,7 +418,7 @@ end
 local servers = {
   clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
@@ -504,6 +505,28 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- `:` cmdline setup.
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        {
+            name = 'cmdline',
+            option = {
+                ignore_cmds = { 'Man', '!' }
+            }
+        }
+    })
+})
 
 require "custom.opts"
 require "custom.keymaps"

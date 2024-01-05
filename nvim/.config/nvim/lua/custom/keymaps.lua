@@ -35,8 +35,8 @@ vim.keymap.set('v', '<', '<gv', { desc = 'Shift left and stay in indent mode' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Shift right and stay in indent mode' })
 
 -- move text up and down
-vim.keymap.set('v', '<A-j>', ':m .+1<CR>==', { desc = 'Visual move line (+) 1' })
-vim.keymap.set('v', '<A-k>', ':m .-2<CR>==', { desc = 'Visual move line (-) 1' })
+vim.keymap.set('v', '<A-j>', ':m .+1<CR>==gv', { desc = 'Visual move line (+) 1' })
+vim.keymap.set('v', '<A-k>', ':m .-2<CR>==gv', { desc = 'Visual move line (-) 1' })
 
 -- center search results
 vim.keymap.set('n', 'n', 'nzz', { desc = 'Find next occurence and center' })
@@ -68,4 +68,8 @@ vim.keymap.set('n', '<leader>lx', ':LspStop<CR>', { desc = '[L]sp stop[X]' } )
 -- Leet
 vim.keymap.set('n', '<leader>lr', ':Leet run<CR>', { desc = '[L]eet [R]un' } )
 vim.keymap.set('n', '<leader>ls', ':Leet submit<CR>', { desc = '[L]eet [S]ubmit' } )
+
+-- quickfix
+vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Next quickfix' } )
+vim.keymap.set('n', '[q', ':cprevious<CR>', { desc = 'Previous quickfix' } )
 
