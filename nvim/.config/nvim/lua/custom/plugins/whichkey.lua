@@ -23,6 +23,7 @@ return {
       ["<leader>w"] = { name = "+workspaces" },
       -- ["<leader><tab>"] = { name = "+tabs" },
       ["<leader>l"] = { name = "+leetcode/lsp" },
+      ["<leader>f"] = { name = "+code[F]orces"}
     })
   end,
 }

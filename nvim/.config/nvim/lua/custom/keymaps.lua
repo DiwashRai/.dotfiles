@@ -73,3 +73,12 @@ vim.keymap.set('n', '<leader>ls', ':Leet submit<CR>', { desc = '[L]eet [S]ubmit'
 vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Next quickfix' } )
 vim.keymap.set('n', '[q', ':cprevious<CR>', { desc = 'Previous quickfix' } )
 
+-- code[F]orces
+vim.keymap.set('n', '<leader>fr', ':CompetiTest run<CR>', { desc = '[F]orces [R]un' } )
+vim.keymap.set('n', '<leader>fs', ':CompetiTest show_ui<CR>', { desc = '[F]orces [S]how UI' } )
+vim.keymap.set('n', '<leader>ft', ':CompetiTest receive testcases<CR>', { desc = '[F]orces receive [T]estcases' } )
+vim.keymap.set('n', '<leader>fp', ':CompetiTest receive problem<CR>', { desc = '[F]orces receive [P]roblem' } )
+vim.keymap.set('n', '<leader>fe', ':CompetiTest edit_testcase<CR>', { desc = '[F]orces [E]dit' } )
+vim.keymap.set('n', '<leader>fa', ':CompetiTest add_testcase<CR>', { desc = '[F]orces [A]dd' } )
+vim.keymap.set('n', '<leader>fd', ':CompetiTest delete_testcase<CR>', { desc = '[F]orces [D]elete' } )
+
