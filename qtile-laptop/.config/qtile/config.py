@@ -251,7 +251,7 @@ def init_widgets_list():
             padding = 5
         ),
         widget.Sep(linewidth = 0, padding = 10),
-        widget.TextBox(text = "", foreground = colors[3]),
+        widget.TextBox(text = "󰍛", foreground = colors[3]),
         widget.Memory(
             foreground = foregroundColor,
             format = '{MemUsed: .0f}{mm} /{MemTotal: .0f}{mm}',
@@ -280,10 +280,10 @@ def init_secondary_bar():
     widgets_list = init_widgets_list()
     return bar.Bar(widgets=widgets_list, size=24)
 
-cosy_tokyo = "/home/diwash/Pictures/wallpapers/cosy-tokyo.jpg"
-city_lights = "/home/diwash/Pictures/wallpapers/City Lights Reflection.jpg"
-pastel_sunrise = "/home/diwash/Pictures/wallpapers/pastel-sunrise.png"
-lofi_japan_streets = "/home/diwash/Pictures/wallpapers/lofi-japan-street.jpg"
+cosy_tokyo = "~/Pictures/wallpapers/cosy-tokyo.jpg"
+city_lights = "~/Pictures/wallpapers/City Lights Reflection.jpg"
+pastel_sunrise = "~/Pictures/wallpapers/pastel-sunrise.png"
+lofi_japan_streets = "~/Pictures/wallpapers/lofi-japan-street.jpg"
 
 
 def count_active_screens():
