@@ -18,7 +18,7 @@ return {
         -- configuration goes here
         arg = leet_arg,
         hooks = {
-          LeetEnter = {
+          ["enter"] = {
             function()
               vim.cmd.colorscheme 'rose-pine'
             end,
