@@ -232,7 +232,7 @@ def init_widgets_list():
             no_update_string='0',
             display_format='{updates}',
             update_interval=1800,
-            distro="Fedora"
+            distro="Debian"
         ),
         widget.Sep(linewidth = 0, padding = 10),
         widget.OpenWeather(
