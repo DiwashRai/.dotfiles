@@ -1,4 +1,4 @@
-local digital_notes_path = vim.fn.expand("$digital_notes_path")
+local home = vim.fn.expand("$HOME")
 
 return {
   "epwalsh/obsidian.nvim",
@@ -18,13 +18,9 @@ return {
   },
   opts = {
     workspaces = {
-      -- {
-      --   name = "digital-garden",
-      --   path = "~/vaults/digital-garden/content",
-      -- },
       {
-        name = "digital-notes",
-        path = digital_notes_path,
+        name = "digital-garden",
+        path = home .. "/digital-garden/content",
       },
     },
     disable_frontmatter = true,
