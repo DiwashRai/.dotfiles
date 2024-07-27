@@ -180,12 +180,19 @@ groups.append(ScratchPad("scratchpad", [
     DropDown("term", f"{terminal} --class=scratch", width=0.8, height=0.8, x=0.1, y=0.1, opacity=1),
     DropDown("music", "flatpak run com.spotify.Client", match=Match(wm_class=["Spotify", "spotify"]),
              width=0.8, height=0.8, x=0.1, y=0.1, opacity=1),
+    DropDown("obsidian", "flatpak run md.obsidian.Obsidian", match=Match(wm_class=["obsidian"]),
+             width=0.8, height=0.8, x=0.1, y=0.1, opacity=1),
+    DropDown("sunsama", "sunsama-2.3.5-build-2407084nf0ym0kn-x86_64_21eb044757fa6d9d9bc1bb3bb93763ec.AppImage",
+             match=Match(wm_class=["sunsama", "Sunsama"], ), width=0.8, height =0.8, x=0.1, y=0.1,
+             opacity=1),
 ]))
 
 
 keys.extend([
     Key([mod], "grave", lazy.group['scratchpad'].dropdown_toggle('term')),
     Key([mod], "m", lazy.group['scratchpad'].dropdown_toggle('music')),
+    Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle('obsidian')),
+    Key([mod], "backslash", lazy.group['scratchpad'].dropdown_toggle('sunsama')),
 ])
 
 
@@ -358,9 +365,10 @@ floating_layout = layout.Floating(
         Match(wm_class="Cheater"),
         Match(wm_class="rofi_quick"),
         Match(wm_class="jetbrains-toolbox"),
-        Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb")
+        Match(wm_class="crx_nngceckbapebfimnlniiiahkandclblb"), # bitwarden extension
     ]
 )
+floats_kept_above = True
 
 @hook.subscribe.client_new
 def floating_dialog_sizes(window):

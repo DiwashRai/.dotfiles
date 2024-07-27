@@ -29,16 +29,24 @@ map <C-l> <C-w>l
 nnoremap <S-l> gt
 nnoremap <S-h> gT
 
-xnoremap > >gv
+xnoremapsymotion-bd-f) > >gv
 xnoremap < <gv
 
 let g:WhichKeyDesc_Search = "<leader>s Search"
-map <leader>sf <Action>(GotoFile)
+map <leader>sf <Action>(com.mituuz.fuzzier.Fuzzier)
 let g:WhichKeyDesc_SearchFile = "<leader>sf Search File"
 map <leader>sg <Action>(FindInPath)
 let g:WhichKeyDesc_SearchGrep = "<leader>sg Search Grep"
 map <leader>su <Action>(FindUsages)
 let g:WhichKeyDesc_SearchUsages = "<leader>su Search Usages"
+map <Leader>mf <action>(com.mituuz.fuzzier.FuzzyMover)
+
+let g:WhichKeyDesc_harpoon = "<leader>hh Harpoon"
+nmap <leader>hh :action ShowHarpoon<cr>
+nmap <leader><leader>1 :action GotoHarpoon1<cr>
+nmap <leader><leader>2 :action GotoHarpoon2<cr>
+nmap <leader><leader>3 :action GotoHarpoon3<cr>
+nmap <leader><leader>4 :action GotoHarpoon4<cr>
 
 let g:WhichKeyDesc_tools = "<leader>t Tools"
 map <leader>tp <Action>(ActivateProblemsViewToolWindow)
