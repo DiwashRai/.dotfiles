@@ -1,4 +1,5 @@
- return {
-  'stevearc/oil.nvim',
-  opts = {},
- }
+return {
+	"stevearc/oil.nvim",
+	opts = {},
+	dependencies = { { "echasnovski/mini.icons", opts = {} } },
+}
