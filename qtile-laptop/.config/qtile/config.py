@@ -169,6 +169,7 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(**layout_theme),
+    layout.MonadTall(**layout_theme, align=1, ratio=0.7),
     layout.VerticalTile(**layout_theme),
     layout.Max(**layout_theme),
     # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
@@ -182,7 +183,7 @@ groups.append(ScratchPad("scratchpad", [
              width=0.8, height=0.8, x=0.1, y=0.1, opacity=1),
     DropDown("obsidian", "flatpak run md.obsidian.Obsidian", match=Match(wm_class=["obsidian"]),
              width=0.8, height=0.8, x=0.1, y=0.1, opacity=1),
-    DropDown("sunsama", "sunsama-2.3.5-build-2407084nf0ym0kn-x86_64_21eb044757fa6d9d9bc1bb3bb93763ec.AppImage",
+    DropDown("sunsama", "sunsama-2.3.5x86_64.AppImage",
              match=Match(wm_class=["sunsama", "Sunsama"], ), width=0.8, height =0.8, x=0.1, y=0.1,
              opacity=1),
 ]))

@@ -1,4 +1,4 @@
-local home = vim.fn.expand("$HOME")
+local home = _G.home
 
 return {
 	"epwalsh/obsidian.nvim",
@@ -21,6 +21,10 @@ return {
 			{
 				name = "digital-garden",
 				path = home .. "/digital-garden/content",
+			},
+			{
+				name = "ref-notes",
+				path = home .. "/ref-notes/content",
 			},
 		},
 		disable_frontmatter = true,
