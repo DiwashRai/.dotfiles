@@ -20,11 +20,11 @@ return {
 		workspaces = {
 			{
 				name = "digital-garden",
-				path = home .. "/digital-garden/content",
+				path = home .. "/Documents/digital-garden/content",
 			},
 			{
 				name = "ref-notes",
-				path = home .. "/ref-notes/content",
+				path = home .. "/Documents/ref-notes/content",
 			},
 		},
 		disable_frontmatter = true,
@@ -32,6 +32,9 @@ return {
 			subdir = "templates",
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
+		},
+		ui = {
+			enable = false,
 		},
 	},
 }

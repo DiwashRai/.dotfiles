@@ -34,6 +34,33 @@ vim.keymap.set("v", "<A-k>", ":m .-2<CR>==gv", { desc = "Visual move line (-) 1"
 vim.keymap.set("n", "n", "nzz", { desc = "Find next occurence and center" })
 vim.keymap.set("n", "N", "Nzz", { desc = "Find previous occurence and center" })
 
+-- harpoon2
+vim.keymap.set("n", "<leader>hh", function()
+	local harpoon = require("harpoon")
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "harpoon quick menu" })
+vim.keymap.set("n", "<leader>a", function()
+	require("harpoon"):list():add()
+end, { desc = "harpoon [a]dd" })
+vim.keymap.set("n", "<leader>1", function()
+	require("harpoon"):list():select(1)
+end, { desc = "harpoon select [1]" })
+vim.keymap.set("n", "<leader>2", function()
+	require("harpoon"):list():select(2)
+end, { desc = "harpoon select [2]" })
+vim.keymap.set("n", "<leader>3", function()
+	require("harpoon"):list():select(3)
+end, { desc = "harpoon select [3]" })
+vim.keymap.set("n", "<leader>4", function()
+	require("harpoon"):list():select(4)
+end, { desc = "harpoon select [4]" })
+vim.keymap.set("n", "<C-S-P>", function()
+	require("harpoon"):list():prev()
+end, { desc = "harpoon [p]rev" })
+vim.keymap.set("n", "<C-S-N>", function()
+	require("harpoon"):list():next()
+end, { desc = "harpoon [n]ext" })
+
 -- CMake
 vim.keymap.set("n", "<leader>cg", ":CMakeGenerate<CR>", { desc = "[C]Make[G]enerate" })
 vim.keymap.set("n", "<leader>cb", ":CMakeBuild<CR>", { desc = "[C]Make[B]uild" })
@@ -44,7 +71,9 @@ vim.keymap.set("n", "<leader>co", ":CMakeOpen<CR>", { desc = "[C]Make[O]pen" })
 vim.keymap.set("n", "<leader>cq", ":CMakeClose<CR>", { desc = "[C]MakeClose ([q]uit)" })
 
 -- Clang format
-vim.keymap.set("n", "<leader>cf", ":Format<CR>", { desc = "[C]lang [F]ormat" })
+vim.keymap.set("n", "<leader>cf", function()
+	vim.lsp.buf.format()
+end, { desc = "[C]lang [F]ormat" })
 
 -- no neck pain
 vim.keymap.set("n", "<leader>np", ":NoNeckPain<CR>", { desc = "[N]eck [P]ain" })

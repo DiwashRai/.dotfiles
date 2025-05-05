@@ -512,6 +512,7 @@ require("lazy").setup({
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					map("<leader>ko", ":ClangdSwitchSourceHeader<CR>", "Clangd switch source/header")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
@@ -656,7 +657,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -827,7 +828,13 @@ require("lazy").setup({
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [Q]uote
 			--  - ci'  - [C]hange [I]nside [']quote
-			require("mini.ai").setup({ n_lines = 500 })
+			local gen_spec = require("mini.ai").gen_spec
+			require("mini.ai").setup({
+				n_lines = 500,
+				custom_textobjects = {
+					F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+				},
+			})
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--

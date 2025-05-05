@@ -128,14 +128,6 @@ def show_keys(keys):
 
     return key_help
 
-# this must be done AFTER all the keys have been defined
-cheater = terminal + " --class='Cheater' -e sh -c 'echo \"" + show_keys(
-    keys
-) + "\" | fzf --prompt=\"Search for a keybind: \" --border=rounded --margin=1% --color=dark --height 100% --reverse --header=\"       QTILE CHEAT SHEET \" --info=hidden --header-first'"
-keys.extend([
-    Key([mod], "F1", lazy.spawn(cheater), desc="Print keyboard bindings"),
-])
-
 groups = [Group(i) for i in "123456789"]
 
 for i in groups:
@@ -190,12 +182,19 @@ groups.append(ScratchPad("scratchpad", [
 
 
 keys.extend([
-    Key([mod], "grave", lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key([mod], "m", lazy.group['scratchpad'].dropdown_toggle('music')),
-    Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle('obsidian')),
-    Key([mod], "backslash", lazy.group['scratchpad'].dropdown_toggle('sunsama')),
+    Key([mod], "grave", lazy.group['scratchpad'].dropdown_toggle('term'), desc="terminal scratchpad"),
+    Key([mod], "m", lazy.group['scratchpad'].dropdown_toggle('music'), desc="music scratchpad"),
+    Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle('obsidian'), desc="Obsidian scratchpad"),
+    Key([mod], "backslash", lazy.group['scratchpad'].dropdown_toggle('sunsama'), desc="Sunsama scratchpad"),
 ])
 
+# this must be done AFTER all the keys have been defined
+cheater = terminal + " --class='Cheater' -e sh -c 'echo \"" + show_keys(
+    keys
+) + "\" | fzf --prompt=\"Search for a keybind: \" --border=rounded --margin=1% --color=dark --height 100% --reverse --header=\"       QTILE CHEAT SHEET \" --info=hidden --header-first'"
+keys.extend([
+    Key([mod], "F1", lazy.spawn(cheater), desc="Print keyboard bindings"),
+])
 
 widget_defaults = dict(
     font=widget_font,
