@@ -45,6 +45,7 @@ return {
 				} or {},
 				virtual_text = {
 					source = "if_many",
+					current_line = true,
 					spacing = 2,
 					format = function(diagnostic)
 						local diagnostic_message = {
