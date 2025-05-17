@@ -24,12 +24,12 @@ require("lazy").setup({
 
 	-- [[ Simple plugins ]] that hopefully works in any env
 	"tpope/vim-sleuth",
+	"mhinz/vim-signify",
 	require("plugins.mini"),
 	require("plugins.oil"),
 	require("plugins.autopairs"),
 	require("plugins.telescope"),
 	require("plugins.which-key"),
-	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
 	require("plugins.flash"),
 
