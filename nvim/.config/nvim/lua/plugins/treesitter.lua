@@ -23,6 +23,15 @@ return {
 			auto_install = true,
 			highlight = {
 				enable = true,
+				disable = function(_, bufnr)
+					if vim.api.nvim_buf_line_count(bufnr) > 15000 then
+						vim.schedule(function()
+							vim.notify("Tree-sitter diabled: too many lines", vim.log.levels.INFO)
+						end)
+						return true
+					end
+					return false
+				end,
 				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
 				--  If you are experiencing weird indenting issues, add the language to
 				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
