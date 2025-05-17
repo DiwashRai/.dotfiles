@@ -73,8 +73,31 @@ return {
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			local util = require("lspconfig.util")
 			local servers = {
-				clangd = {},
+				clangd = {
+					cmd = { "clangd" },
+					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+					root_dir = function(fname)
+						return util.root_pattern(
+							".clangd",
+							".clang-tidy",
+							".clang-format",
+							"compile_commands.json",
+							"compile_flags.txt",
+							"configure.ac" -- AutoTools
+						)(fname) or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+					end,
+					single_file_support = true,
+					capabilities = {
+						textDocument = {
+							completion = {
+								editsNearCursor = true,
+							},
+						},
+						offsetEncoding = { "utf-8", "utf-16" },
+					},
+				},
 				-- gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
