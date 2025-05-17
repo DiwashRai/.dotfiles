@@ -141,7 +141,6 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					"stylua",
 				},
 				automatic_enable = true,
 				automatic_installation = false,
