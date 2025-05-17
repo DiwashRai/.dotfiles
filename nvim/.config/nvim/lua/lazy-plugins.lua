@@ -31,6 +31,7 @@ require("lazy").setup({
 	require("plugins.which-key"),
 	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
+	require("plugins.flash"),
 
 	-- [[ More demanding plugins ]]
 	require("plugins.treesitter"),
