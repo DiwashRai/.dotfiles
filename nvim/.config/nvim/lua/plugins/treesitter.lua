@@ -1,6 +1,9 @@
 return {
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			{ "j-hui/fidget.nvim", opts = {} },
+		},
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs", -- Sets main module to use for opts
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -26,7 +29,11 @@ return {
 				disable = function(_, bufnr)
 					if vim.api.nvim_buf_line_count(bufnr) > 15000 then
 						vim.schedule(function()
-							vim.notify("Tree-sitter diabled: too many lines", vim.log.levels.INFO)
+							require("fidget").notify(
+								"Tree-sitter diabled: too many lines",
+								vim.log.levels.INFO,
+								{ title = "Performance" }
+							)
 						end)
 						return true
 					end
