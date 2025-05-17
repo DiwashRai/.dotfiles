@@ -31,17 +31,17 @@ require("lazy").setup({
 	require("plugins.which-key"),
 	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
-
-	require("plugins.treesitter"),
+  require("plugins.flash"),
 
 	-- [[ More demanding plugins ]]
+	require("plugins.treesitter"),
 	require("plugins.lspconfig"), -- language servers defined in here
-	require("plugins.conform"), -- Autoformat
 	require("plugins.blink-cmp"), -- Autocompletion
-	require("plugins.lint"), -- Linting
+	-- require("plugins.conform"), -- Autoformat
+	-- require("plugins.lint"), -- Linting
 
 	-- [[ Specific plugins ]]
-	require("plugins.cmake-tools"),
+	-- require("plugins.cmake-tools"),
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
