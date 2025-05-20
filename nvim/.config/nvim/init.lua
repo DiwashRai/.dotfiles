@@ -24,6 +24,7 @@ vim.opt.updatetime = 250 -- decrease time to write swap file. Coupled with Curso
 vim.opt.timeoutlen = 300 -- decrease mapped sequence wait time e.g. gd, gf etc
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.wrap = false
 
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", eol = "¬", lead = "·", trail = "·", nbsp = "␣" }
