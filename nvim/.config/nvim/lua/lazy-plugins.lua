@@ -39,6 +39,7 @@ require("lazy").setup({
 	require("plugins.blink-cmp"), -- Autocompletion
 	-- require("plugins.conform"), -- Autoformat
 	-- require("plugins.lint"), -- Linting
+	require("plugins.diagflow"), -- Diagnostics on top right of buffer. Load after lspconfig
 
 	-- [[ Specific plugins ]]
 	-- require("plugins.cmake-tools"),
