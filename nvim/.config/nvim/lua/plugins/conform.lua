@@ -25,12 +25,13 @@ return {
 				else
 					return {
 						timeout_ms = 500,
-						lsp_format = "fallback",
+						lsp_format = "never",
 					}
 				end
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				go = { "gofmt" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -40,4 +41,4 @@ return {
 		},
 	},
 }
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2

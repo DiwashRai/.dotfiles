@@ -4,7 +4,9 @@ return {
 	opts = {
 		scope = "line",
 		format = function(diagnostic)
-			return diagnostic.source .. ": " .. diagnostic.message .. " [" .. diagnostic.code .. "]"
+			local src = diagnostic.source and (diagnostic.source .. ": ") or ""
+			local code = diagnostic.code and (" [" .. diagnostic.code .. "]") or ""
+			return src .. diagnostic.message .. code
 		end,
 	},
 }
