@@ -5,3 +5,4 @@ qtile-laptop/.config/qtile/__pycache__
 kitty/.config/kitty/kitty.conf.bak
 nvim/.config/nvim/.stylua.toml
 qtile-laptop/.config/qtile/defaultconfig.py
+errors.log
