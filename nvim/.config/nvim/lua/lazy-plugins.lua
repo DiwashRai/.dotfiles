@@ -18,9 +18,9 @@ require("lazy").setup({
 	-- 5: Local(dev) plugins
 
 	-- [[ Colorschemes ]] use one at a time
-	require("plugins.gruvbox"),
+	-- require("plugins.gruvbox"),
 	-- require("plugins.gruvbox-material"),
-	-- require("plugins.kanagawa"),
+	require("plugins.kanagawa"),
 	-- require("plugins.rose-pine"),
 
 	-- [[ Simple plugins ]] that hopefully works in any env
