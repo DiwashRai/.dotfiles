@@ -18,13 +18,15 @@ require("lazy").setup({
 	-- 5: Local(dev) plugins
 
 	-- [[ Colorschemes ]] use one at a time
+	require("plugins.gruvbox"),
 	-- require("plugins.gruvbox-material"),
-	require("plugins.kanagawa"),
+	-- require("plugins.kanagawa"),
 	-- require("plugins.rose-pine"),
 
 	-- [[ Simple plugins ]] that hopefully works in any env
 	"tpope/vim-sleuth",
 	"mhinz/vim-signify",
+	"tpope/vim-fugitive",
 	require("plugins.mini"),
 	require("plugins.oil"),
 	require("plugins.autopairs"),
@@ -32,12 +34,13 @@ require("lazy").setup({
 	require("plugins.which-key"),
 	require("plugins.harpoon"),
 	require("plugins.flash"),
+	require("plugins.toggleterm"),
 
 	-- [[ More demanding plugins ]]
 	require("plugins.treesitter"),
 	require("plugins.lspconfig"), -- language servers defined in here
 	require("plugins.blink-cmp"), -- Autocompletion
-	-- require("plugins.conform"), -- Autoformat
+	require("plugins.conform"), -- Autoformat
 	-- require("plugins.lint"), -- Linting
 	require("plugins.diagflow"), -- Diagnostics on top right of buffer. Load after lspconfig
 
