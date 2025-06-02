@@ -33,6 +33,7 @@ vim.opt.inccommand = "split" -- preview substitutions as you type
 vim.opt.cursorline = false -- highlight the line your cursor is on. Big performance hit?
 vim.opt.scrolloff = 10
 vim.opt.confirm = true -- dialog when you try to exit without saving
+vim.opt.colorcolumn = "100"
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 require("lazy-bootstrap")
