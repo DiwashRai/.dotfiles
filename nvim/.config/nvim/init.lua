@@ -41,6 +41,10 @@ require("lazy-bootstrap")
 -- [[ Configure and install plugins ]]
 require("lazy-plugins")
 
+-- [[ Own functions ]]
+require("todo-scratch")
+require("remedybg")
+
 -- [[ KEYMAPS ]]
 require("keymaps")
 

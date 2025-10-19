@@ -143,7 +143,8 @@ return {
 			}
 
 			-- Manually setup servers that are installed externally
-			require("lspconfig").clangd.setup(servers.clangd)
+			vim.lsp.config("clangd", servers.clangd)
+			vim.lsp.enable("clangd")
 			-- Ensures that servers installed with Mason are setup
 			require("mason-lspconfig").setup({
 				ensure_installed = {

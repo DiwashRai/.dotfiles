@@ -1,9 +1,19 @@
 return {
 	"stevearc/oil.nvim",
+	keys = {
+		{
+			"-",
+			function()
+				require("oil").open()
+			end,
+			{ desc = "Open parent directory" },
+		},
+	},
 	opts = {
 		view_options = {
 			show_hidden = true,
 		},
+		columns = {},
 		keymaps = {
 			["g?"] = { "actions.show_help", mode = "n" },
 			["<CR>"] = "actions.select",
@@ -22,6 +32,7 @@ return {
 		},
 		use_default_keymaps = false,
 	},
-	dependencies = { { "echasnovski/mini.icons", opts = {} } },
+	lazy = false,
+	--dependencies = { { "echasnovski/mini.icons", opts = {} } },
 }
 -- vim: ts=2 sts=2 sw=2 et

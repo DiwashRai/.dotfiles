@@ -41,9 +41,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Oil.nvim
-vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
-
 -- Harpoon
 vim.keymap.set("n", "<leader><leader>", function()
 	local harpoon = require("harpoon")

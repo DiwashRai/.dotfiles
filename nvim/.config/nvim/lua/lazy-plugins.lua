@@ -46,6 +46,9 @@ require("lazy").setup({
 
 	-- [[ Specific plugins ]]
 	-- require("plugins.cmake-tools"),
+	require("plugins.checkmate"),
+	-- require("plugins.copilot"),
+	-- require("plugins.codecompanion"),
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
