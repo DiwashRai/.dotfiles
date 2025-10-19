@@ -3,12 +3,15 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
+	lazy = true,
 	keys = {
-		"<leader>aa",
-		function()
-			require("codecompanion").toggle()
-		end,
-		{ desc = "[A]I [A]ssistant toggle chat" },
+		{
+			"<leader>aa",
+			function()
+				require("codecompanion").toggle()
+			end,
+			{ desc = "[A]I [A]ssistant toggle chat" },
+		},
 	},
 	opts = {
 		strategies = {
