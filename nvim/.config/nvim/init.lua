@@ -48,5 +48,9 @@ require("remedybg")
 -- [[ KEYMAPS ]]
 require("keymaps")
 
+-- [[ LSP ]]
+-- lsp servers themselves are configured in ./lsp/<server>.lua
+vim.lsp.enable({ "clangd" })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

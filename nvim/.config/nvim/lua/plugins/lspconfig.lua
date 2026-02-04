@@ -76,28 +76,6 @@ return {
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local util = require("lspconfig.util")
 			local servers = {
-				clangd = {
-					cmd = { "clangd" },
-					filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-					root_dir = util.root_pattern(
-						".clangd",
-						".clang-tidy",
-						".clang-format",
-						"compile_commands.json",
-						"compile_flags.txt",
-						"configure.ac",
-						".git"
-					),
-					single_file_support = true,
-					capabilities = {
-						textDocument = {
-							completion = {
-								editsNearCursor = true,
-							},
-						},
-						offsetEncoding = { "utf-8", "utf-16" },
-					},
-				},
 				gopls = {
 					completeUnimported = true,
 					usePlaceholders = true,
@@ -142,9 +120,6 @@ return {
 				},
 			}
 
-			-- Manually setup servers that are installed externally
-			vim.lsp.config("clangd", servers.clangd)
-			vim.lsp.enable("clangd")
 			-- Ensures that servers installed with Mason are setup
 			require("mason-lspconfig").setup({
 				ensure_installed = {
