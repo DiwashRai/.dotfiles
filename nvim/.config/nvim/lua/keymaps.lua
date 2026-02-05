@@ -6,8 +6,8 @@ vim.keymap.set("v", "<", "<gv", { desc = "Shift left and stay in indent mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Shift right and stay in indent mode" })
 
 -- move text up and down
-vim.keymap.set("v", "<A-j>", ":m .+1<CR>==gv", { desc = "Visual move line (+) 1" })
-vim.keymap.set("v", "<A-k>", ":m .-2<CR>==gv", { desc = "Visual move line (-) 1" })
+vim.keymap.set("v", "<S-j>", ":m .+1<CR>==gv", { desc = "Visual move line (+) 1" })
+vim.keymap.set("v", "<S-k>", ":m .-2<CR>==gv", { desc = "Visual move line (-) 1" })
 
 -- window navigation
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
