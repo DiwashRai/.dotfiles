@@ -41,6 +41,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Git
+vim.keymap.set("n", "<leader>gg", ":vertical Git<CR>", { desc = "[G]it fu[g]itive" })
+
 -- Harpoon
 vim.keymap.set("n", "<leader><leader>", function()
 	local harpoon = require("harpoon")
