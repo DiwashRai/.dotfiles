@@ -43,6 +43,7 @@ require("lazy").setup({
 	require("plugins.conform"), -- Autoformat
 	-- require("plugins.lint"), -- Linting
 	require("plugins.diagflow"), -- Diagnostics on top right of buffer. Load after lspconfig
+	require("plugins.diffview"),
 
 	-- [[ Specific plugins ]]
 	-- require("plugins.cmake-tools"),
