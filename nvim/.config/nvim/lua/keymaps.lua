@@ -42,7 +42,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Git
-vim.keymap.set("n", "<leader>gg", ":vertical Git<CR>", { desc = "[G]it fu[g]itive" })
+vim.keymap.set("n", "<leader>gg", ":vertical Git<CR>", { desc = "[g]o [g]it" })
+vim.keymap.set("n", "<leader>gl", ":vertical Git log --oneline<CR>", { desc = "[g]it [l]og" })
+vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>", { desc = "[g]it [d]iff" })
+vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "[g]it [b]lame" })
+
+-- Diffview
+vim.keymap.set("n", "<leader>do", ":DiffviewOpen<CR>", { desc = "[d]iffview [o]pen" })
+vim.keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "[d]iffview [c]lose" })
+vim.keymap.set("n", "<leader>dh", ":DiffviewFileHistory %<CR>", { desc = "[d]iffview file [h]istory" })
+vim.keymap.set("n", "<leader>dH", ":DiffviewFileHistory<CR>", { desc = "[d]iffview branch [H]istory" })
 
 -- Harpoon
 vim.keymap.set("n", "<leader><leader>", function()

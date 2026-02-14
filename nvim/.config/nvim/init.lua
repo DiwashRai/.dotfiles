@@ -43,7 +43,7 @@ require("lazy-plugins")
 
 -- [[ Own functions ]]
 require("todo-scratch")
-require("remedybg")
+-- require("remedybg")
 
 -- [[ KEYMAPS ]]
 require("keymaps")
