@@ -120,6 +120,3 @@ Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::TabCompleteNext()
 }
 
-# Key binds
-Set-PSReadLineKeyHandler -Chord 'ctrl+j' -ScriptBlock { Invoke-JustFzfFromTrigger -Force | Out-Null }
-
