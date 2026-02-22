@@ -69,6 +69,20 @@ $global:BranchColor = "$esc[34m"
 #$global:BranchColor = $PSStyle.Foreground.FromRgb(156,207,216)
 $global:ColorReset  = "$esc[0m"
 
+# to avoid locking .get/HEAD when branch switching
+function Get-FirstLineShared([string]$p) {
+    try {
+        $fs = [IO.FileStream]::new(
+            $p, [IO.FileMode]::Open, [IO.FileAccess]::Read,
+            ([IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete)
+        )
+        try {
+            $sr = [IO.StreamReader]::new($fs)
+            try { return $sr.ReadLine() } finally { $sr.Dispose() }
+        } finally { $fs.Dispose() }
+    } catch { return $null }
+}
+
 function prompt {
     $path = $executionContext.SessionState.Path.CurrentLocation
     $currDir = $path.ProviderPath
@@ -84,13 +98,14 @@ function prompt {
     }
 
     if ($headPath) {
-        $headLine = [IO.File]::ReadLines($headPath) | Select-Object -First 1
-        $branch = $headLine.Substring(16)   # assumes "ref: refs/heads/"
-        "PS $path [$($global:BranchColor)$branch$($global:ColorReset)]> "
+        $branch = ""
+        $headLine = Get-FirstLineShared $headPath
+        if ($headLine -and $headLine.StartsWith("ref: refs/heads/")){
+            $branch = $headLine.Substring(16)
+        }
+        return "PS $path [$($global:BranchColor)$branch$($global:ColorReset)]> "
     }
-    else {
-        "PS $path> "
-    }
+    "PS $path> "
 }
 
 # Just handler
