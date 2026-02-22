@@ -103,7 +103,7 @@ function Invoke-JustFzfFromTrigger([switch]$force) {
     $items = $raw -split '\s+' | Where-Object { $_ }
 
     $pick = $items |
-        Invoke-Fzf -Preview 'just --usage {1}'
+        Invoke-Fzf -Preview 'just --show {1}'
 
     [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
     if (-not $pick) { return $true }
