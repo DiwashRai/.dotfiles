@@ -48,10 +48,10 @@ vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>", { desc = "[g]it [d]iff" })
 vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "[g]it [b]lame" })
 
 -- Diffview
-vim.keymap.set("n", "<leader>do", ":DiffviewOpen<CR>", { desc = "[d]iffview [o]pen" })
+vim.keymap.set("n", "<leader>do", ":DiffviewOpen", { desc = "[d]iffview [o]pen" })
 vim.keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "[d]iffview [c]lose" })
 vim.keymap.set("n", "<leader>dh", ":DiffviewFileHistory %<CR>", { desc = "[d]iffview file [h]istory" })
-vim.keymap.set("n", "<leader>dH", ":DiffviewFileHistory<CR>", { desc = "[d]iffview branch [H]istory" })
+vim.keymap.set("n", "<leader>db", ":DiffviewFileHistory<CR>", { desc = "[d]iffview [b]ranch history" })
 
 -- Harpoon
 vim.keymap.set("n", "<leader><leader>", function()
