@@ -1,10 +1,8 @@
 local local_options = {
 	shiftwidth = 2,
 	tabstop = 2,
-	expandtab = false,
 	softtabstop = 2,
-	smartindent = true,
-	autoindent = true,
+	expandtab = false,
 }
 
 for k, v in pairs(local_options) do

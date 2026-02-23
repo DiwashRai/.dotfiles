@@ -35,6 +35,11 @@ vim.opt.scrolloff = 10
 vim.opt.confirm = true -- dialog when you try to exit without saving
 vim.opt.colorcolumn = "100"
 
+vim.opt.autoindent = true -- copy indent from current line when starting a new line
+-- just use filetype plugin indent on instead of smartindent now and forever
+-- vim.opt.smartindent = true -- use with autoindent. Indents after [if,else,while,do,for,switch,{,}]
+vim.cmd("filetype plugin indent on")
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 require("lazy-bootstrap")
 
@@ -51,6 +56,3 @@ require("keymaps")
 -- [[ LSP ]]
 -- lsp servers themselves are configured in ./lsp/<server>.lua
 vim.lsp.enable({ "clangd" })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
