@@ -1,6 +1,11 @@
 -- Git
 vim.keymap.set("n", "<leader>gg", ":vertical Git<CR>", { desc = "[g]o [g]it" })
-vim.keymap.set("n", "<leader>gl", ":vertical Git log --oneline<CR>", { desc = "[g]it [l]og" })
+vim.keymap.set(
+	"n",
+	"<leader>gl",
+	":vertical Git log --oneline --graph --decorate --pretty=format:'%C(auto)%h - %d %s %C(blue)<%an>%C(reset) %C(black bold)%cr'<CR>",
+	{ desc = "[g]it [l]og" }
+)
 vim.keymap.set("n", "<leader>gd", ":CodeDiff file HEAD<CR>", { desc = "[g]it [d]iff" })
 vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "[g]it [b]lame" })
 vim.keymap.set("n", "<leader>gr", ":CodeDiff main...HEAD", { desc = "[g]it [r]eview" })
