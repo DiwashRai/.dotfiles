@@ -25,6 +25,11 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase w
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Previous buffer" })
 
+-- tabs
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<CR>", { desc = "[t]ab [n]ext" })
+vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<CR>", { desc = "[t]ab [p]revious" })
+vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "[t]ab [c]lose" })
+
 -- quickfix
 vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Next quickfix" })
 vim.keymap.set("n", "[q", ":cprevious<CR>", { desc = "Previous quickfix" })
@@ -40,18 +45,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-
--- Git
-vim.keymap.set("n", "<leader>gg", ":vertical Git<CR>", { desc = "[g]o [g]it" })
-vim.keymap.set("n", "<leader>gl", ":vertical Git log --oneline<CR>", { desc = "[g]it [l]og" })
-vim.keymap.set("n", "<leader>gd", ":Gvdiff<CR>", { desc = "[g]it [d]iff" })
-vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "[g]it [b]lame" })
-
--- Diffview
-vim.keymap.set("n", "<leader>do", ":DiffviewOpen", { desc = "[d]iffview [o]pen" })
-vim.keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "[d]iffview [c]lose" })
-vim.keymap.set("n", "<leader>dh", ":DiffviewFileHistory %<CR>", { desc = "[d]iffview file [h]istory" })
-vim.keymap.set("n", "<leader>db", ":DiffviewFileHistory<CR>", { desc = "[d]iffview [b]ranch history" })
 
 -- Harpoon
 vim.keymap.set("n", "<leader><leader>", function()

@@ -47,6 +47,7 @@ require("lazy-bootstrap")
 require("lazy-plugins")
 
 -- [[ Own functions ]]
+require("git")
 require("todo-scratch")
 -- require("remedybg")
 
