@@ -13,22 +13,17 @@ return {
 		},
 	},
 	{
-		-- Main LSP Configuration
-		"neovim/nvim-lspconfig",
+		"williamboman/mason.nvim",
 		dependencies = {
-			-- Automatically install LSPs and related tools to stdpath for Neovim
-			-- Mason must be loaded before its dependents so we need to set it up here.
-			-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-			{ "williamboman/mason.nvim", opts = {} },
-			"williamboman/mason-lspconfig.nvim",
-
 			-- Useful status updates for LSP.
 			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Allows extra capabilities provided by blink.cmp
 			"saghen/blink.cmp",
 		},
-		config = function()
+		config = function(_, opts)
+			require("mason").setup(opts)
+
 			-- Diagnostic Config
 			-- See :help vim.diagnostic.Opts
 			vim.diagnostic.config({
@@ -59,15 +54,29 @@ return {
 				},
 			})
 
-			-- Mason installs servers; native vim.lsp.enable() in init.lua starts them.
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					"gopls",
-					"pyright",
-				},
-				automatic_enable = false,
-			})
+			local ensure_installed = {
+				"lua-language-server",
+				"gopls",
+				"pyright",
+			}
+
+			local registry = require("mason-registry")
+			registry.refresh(function()
+				for _, package_name in ipairs(ensure_installed) do
+					if not registry.is_installed(package_name) then
+						local ok, package = pcall(registry.get_package, package_name)
+						if ok then
+							package:install()
+						else
+							vim.notify(
+								("Mason package not found: %s"):format(package_name),
+								vim.log.levels.WARN,
+								{ title = "Mason" }
+							)
+						end
+					end
+				end
+			end)
 		end,
 	},
 }

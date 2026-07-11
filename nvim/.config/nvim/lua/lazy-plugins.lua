@@ -38,12 +38,11 @@ require("lazy").setup({
 
 	-- [[ More demanding plugins ]]
 	require("plugins.treesitter"),
-	require("plugins.lspconfig"), -- language servers defined in here
+	require("plugins.lsp"), -- LSP support plugins
 	require("plugins.blink-cmp"), -- Autocompletion
 	require("plugins.conform"), -- Autoformat
 	-- require("plugins.lint"), -- Linting
-	require("plugins.diagflow"), -- Diagnostics on top right of buffer. Load after lspconfig
-	-- require("plugins.diffview"),
+	require("plugins.diagflow"), -- Diagnostics on top right of buffer.
 	require("plugins.codediff"),
 
 	-- [[ Specific plugins ]]
