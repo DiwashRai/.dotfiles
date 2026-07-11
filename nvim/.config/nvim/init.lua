@@ -56,4 +56,4 @@ require("keymaps")
 
 -- [[ LSP ]]
 -- lsp servers themselves are configured in ./lsp/<server>.lua
-vim.lsp.enable({ "clangd" })
+vim.lsp.enable({ "clangd", "lua_ls", "gopls", "pyright" })
