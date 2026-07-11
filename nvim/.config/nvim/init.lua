@@ -46,13 +46,8 @@ require("lazy-bootstrap")
 -- [[ Configure and install plugins ]]
 require("plugins")
 
--- [[ Own functions ]]
-require("git")
-require("todo-scratch")
--- require("remedybg")
-
 -- [[ KEYMAPS ]]
-require("keymaps")
+require("keymaps").setup_lsp_keymaps()
 
 -- [[ LSP ]]
 -- lsp servers themselves are configured in ./lsp/<server>.lua

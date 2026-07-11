@@ -4,7 +4,7 @@ vim.pack.add({
 
 require("toggleterm").setup({
 	direction = "float",
-	open_mapping = [[<c-\>]],
+	open_mapping = require("keymaps").config.toggleterm,
 	float_opts = {
 		border = "curved",
 		height = function()

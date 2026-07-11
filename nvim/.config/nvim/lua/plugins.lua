@@ -30,6 +30,7 @@ local function setup_pack_plugins()
 	require("plugins.oil")
 	require("plugins.harpoon")
 	require("plugins.toggleterm")
+	require("todo-scratch").setup()
 end
 
 -- lazy.nvim remains responsible for plugins that benefit from lazy-loading,

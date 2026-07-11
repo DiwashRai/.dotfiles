@@ -39,12 +39,12 @@ local function ensure_buffer()
 		return state.buf
 	end
 	local buf = vim.fn.bufadd(PATH)
+	pcall(vim.api.nvim_set_option_value, "swapfile", false, { buf = buf })
 	vim.fn.bufload(buf)
 	state.buf = buf
 
 	-- Nice defaults for the todo buffer
 	pcall(vim.api.nvim_set_option_value, "filetype", "markdown", { buf = buf })
-	pcall(vim.api.nvim_set_option_value, "swapfile", true, { buf = buf })
 	return buf
 end
 
@@ -115,8 +115,9 @@ function M.toggle()
 	end
 end
 
-vim.keymap.set("n", "<C-t>", function()
-	M.toggle()
-end, { desc = "Toggle TODO scratchpad" })
+function M.setup()
+	local keymaps = require("keymaps")
+	keymaps.set(keymaps.pack.todo_scratch)
+end
 
 return M

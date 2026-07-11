@@ -2,6 +2,7 @@ return {
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
+		keys = require("keymaps").lazy.telescope,
 		dependencies = {
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",

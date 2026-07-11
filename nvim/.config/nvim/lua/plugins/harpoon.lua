@@ -3,3 +3,6 @@ vim.pack.add({
 }, { confirm = false, load = true })
 
 require("harpoon"):setup()
+
+local keymaps = require("keymaps")
+keymaps.set(keymaps.pack.harpoon)
