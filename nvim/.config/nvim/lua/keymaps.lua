@@ -63,6 +63,13 @@ vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "[G]it [B]lame" })
 vim.keymap.set("n", "<leader>do", ":CodeDiff ", { desc = "[D]iff [O]pen" })
 vim.keymap.set("n", "<leader>df", ":CodeDiff history %<CR>", { desc = "[D]iff history [F]ile" })
 vim.keymap.set("n", "<leader>db", ":CodeDiff history<CR>", { desc = "[D]iff history [B]ranch" })
+
+vim.keymap.set("n", "<leader>gf", function()
+	vim.cmd("write")
+	vim.fn.system({ "git", "clang-format", "HEAD", "-f", "--", vim.fn.expand("%:p") })
+	vim.cmd("edit!")
+end, { desc = "[g]it clang-[f]ormat" })
+
 vim.keymap.set("n", "<leader>gr", function()
 	local out = vim.fn.systemlist("git config --get review.base")
 	if vim.v.shell_error ~= 0 or not out[1] or out[1] == "" then
