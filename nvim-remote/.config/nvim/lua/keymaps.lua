@@ -136,37 +136,6 @@ M.lazy.conform = {
 	},
 }
 
-M.lazy.flash = {
-	{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash", },
-	{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter", },
-	{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash", },
-}
-
-M.config.checkmate = {
-	["<leader>tt"] = { rhs = "<cmd>Checkmate toggle<CR>", desc = "Toggle todo item", modes = { "n", "v" } },
-	["<leader>td"] = {
-		rhs = "<cmd>Checkmate metadata toggle done<CR>",
-		desc = "Toggle @done meta",
-		modes = { "n", "v" },
-	},
-	["<leader>tn"] = { rhs = "<cmd>Checkmate create<CR>", desc = "Create todo item", modes = { "n", "v" } },
-	["<leader>ta"] = {
-		rhs = "<cmd>Checkmate archive<CR>",
-		desc = "Archive checked/completed todo items (move to bottom section)",
-		modes = { "n" },
-	},
-	["<leader>tv"] = {
-		rhs = "<cmd>Checkmate metadata select_value<CR>",
-		desc = "Update metadata value",
-		modes = { "n" },
-	},
-	["<leader>tr"] = {
-		rhs = "<cmd>Checkmate remove_all_metadata<CR>",
-		desc = "Remove all metadata",
-		modes = { "n", "v" },
-	},
-}
-
 M.config.oil = {
 	["g?"] = { "actions.show_help", mode = "n" },
 	["<CR>"] = "actions.select",

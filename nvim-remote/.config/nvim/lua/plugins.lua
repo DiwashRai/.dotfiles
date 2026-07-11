@@ -37,7 +37,6 @@ require("lazy").setup({
 	require("plugins.autopairs"),
 	require("plugins.telescope"),
 	require("plugins.which-key"),
-	require("plugins.flash"),
 
 	-- [[ More demanding plugins ]]
 	require("plugins.treesitter"),

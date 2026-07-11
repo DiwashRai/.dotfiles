@@ -4,7 +4,7 @@ vim.g.maplocalleader = " "
 
 -- [[ BASIC options ]]
 
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
