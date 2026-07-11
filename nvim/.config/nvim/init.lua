@@ -44,7 +44,7 @@ vim.cmd("filetype plugin indent on")
 require("lazy-bootstrap")
 
 -- [[ Configure and install plugins ]]
-require("lazy-plugins")
+require("plugins")
 
 -- [[ Own functions ]]
 require("git")

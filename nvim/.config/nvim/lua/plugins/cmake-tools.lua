@@ -1,7 +1,6 @@
 local is_win = vim.fn.has("win32") == 1
 return {
 	"Civitasv/cmake-tools.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path

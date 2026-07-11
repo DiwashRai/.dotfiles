@@ -3,7 +3,6 @@ return {
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make", -- only run when plugin installed/updated

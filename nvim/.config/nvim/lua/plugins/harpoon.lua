@@ -1,8 +1,5 @@
-return {
-	"ThePrimeagen/harpoon",
-	branch = "harpoon2",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	config = function()
-		require("harpoon"):setup()
-	end,
-}
+vim.pack.add({
+	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+}, { confirm = false, load = true })
+
+require("harpoon"):setup()
