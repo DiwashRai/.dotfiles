@@ -1,6 +1,7 @@
 return {
 	"esmuellert/codediff.nvim",
 	cmd = "CodeDiff",
+	event = "VeryLazy",
 	opts = {
 		diff = {
 			layout = "side-by-side",

@@ -44,15 +44,13 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
+		event = "InsertEnter",
 		opts = {},
 	},
 	{
 		-- Useful status updates for LSP.
 		"j-hui/fidget.nvim",
-		opts = {},
-	},
-	{
-		"mason-org/mason.nvim",
+		event = "LspAttach",
 		opts = {},
 	},
 }

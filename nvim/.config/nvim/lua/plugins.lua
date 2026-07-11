@@ -22,6 +22,7 @@ local function setup_pack_plugins()
 		{ src = "https://github.com/mhinz/vim-signify" },
 		{ src = "https://github.com/tpope/vim-fugitive" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
+		{ src = "https://github.com/mason-org/mason.nvim" },
 	}, { confirm = false, load = true })
 
 	vim.cmd.colorscheme("kanagawa")
