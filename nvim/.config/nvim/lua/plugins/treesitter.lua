@@ -30,7 +30,7 @@ return {
 					if vim.api.nvim_buf_line_count(bufnr) > 15000 then
 						vim.schedule(function()
 							require("fidget").notify(
-								"Tree-sitter diabled: too many lines",
+								"Tree-sitter disabled: too many lines",
 								vim.log.levels.INFO,
 								{ title = "Performance" }
 							)
