@@ -13,6 +13,7 @@ return {
 				"cpp",
 				"diff",
 				"html",
+				"just",
 				"lua",
 				"luadoc",
 				"markdown",
