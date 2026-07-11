@@ -49,7 +49,7 @@ require("lazy").setup({
 	-- [[ Specific plugins ]]
 	-- require("plugins.cmake-tools"),
 	require("plugins.checkmate"),
-	require("plugins.copilot"),
+	-- require("plugins.copilot"),
 	require("plugins.codecompanion"),
 }, {
 	ui = {

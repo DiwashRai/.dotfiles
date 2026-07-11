@@ -35,6 +35,8 @@ Set-Alias y yaz
 ## git aliases
 function gs { git status }
 
+function copilot { copilot.exe --yolo $args }
+
 # PSFzf
 Set-PsFzfOption `
     -PSReadlineChordProvider 'Ctrl+t'`
