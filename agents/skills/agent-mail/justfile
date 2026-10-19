@@ -1,0 +1,31 @@
+# agent-mail task runner. Run `just` to list the recipes.
+
+set windows-shell := ["pwsh", "-NoLogo", "-NoProfile", "-Command"]
+
+export PYTHONUTF8 := "1"
+
+# List the recipes
+default:
+    @just --list
+
+# Lint, format, types (checked as Python 3.11)
+check:
+    uv run ruff check .
+    uv run ruff format --check .
+    uv run mypy
+
+# Complexity and size limits
+gates:
+    uv run python gates.py
+
+# Tests
+test:
+    uv run pytest
+
+# Everything, before calling a change done
+all: check gates test
+
+# Auto-fix lint issues and format the code
+fix:
+    uv run ruff check . --fix
+    uv run ruff format .

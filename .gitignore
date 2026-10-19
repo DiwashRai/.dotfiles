@@ -6,3 +6,8 @@ kitty/.config/kitty/kitty.conf.bak
 nvim/.config/nvim/.stylua.toml
 qtile-laptop/.config/qtile/defaultconfig.py
 errors.log
+agents/skills/*/.venv/
+**/__pycache__/
+**/.mypy_cache/
+**/.pytest_cache/
+**/.ruff_cache/

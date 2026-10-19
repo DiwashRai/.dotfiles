@@ -1,0 +1,55 @@
+[project]
+name = "todoist"
+version = "0.1.0"
+description = "The owner's Todoist tasks as Markdown."
+requires-python = ">=3.11"
+dependencies = []  # todoist.py is standard library only; a test enforces it
+
+[dependency-groups]
+dev = ["complexipy==8.0.1", "mypy", "pytest", "ruff"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "I", "UP", "C4", "B", "SIM", "RET",
+    "BLE001",  # broad except
+    "DTZ",     # naive datetimes
+    "PGH003",  # blanket type: ignore
+    "RUF100",  # unused noqa
+    "PLR0912", "PLR0913", "PLR0915",  # branches, arguments, statements per function
+    "S110", "S112",  # try / except / pass or continue
+    "TRY002", "TRY203", "TRY300", "TRY400",  # exception style
+    "ARG",  # unused arguments
+    "ERA",  # commented-out code
+    "T20",  # print
+]
+
+[tool.ruff.lint.pylint]
+max-args = 5
+max-statements = 40
+
+# Cyclomatic complexity is a gate (`just gates`), not part of the normal lint.
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+# CLIs: printing is their output.
+"todoist.py" = ["T201"]
+"gates.py" = ["T201"]
+"tests/*.py" = ["ARG"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+files = ["todoist.py", "gates.py", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
