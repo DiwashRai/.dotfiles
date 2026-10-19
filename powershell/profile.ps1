@@ -17,6 +17,7 @@ Set-Alias remove Remove-LocationBookmark
 Set-Alias cat bat
 
 $env:LL_ARGS = "-l --color always --group-directories-first --no-filesize --icons always --no-permissions"
+Set-Alias ls eza
 function ll {
     eza @($env:LL_ARGS.Split(' ')) @args
 }
@@ -36,6 +37,8 @@ Set-Alias y yaz
 function gs { git status }
 
 function copilot { copilot.exe --yolo $args }
+function claude { claude.exe --dangerously-skip-permissions $args }
+function codex { codex.exe --dangerously-bypass-approvals-and-sandbox $args }
 
 # PSFzf
 Set-PsFzfOption `
