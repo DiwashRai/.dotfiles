@@ -2,7 +2,13 @@
 
 Each top-level task is a `##` heading, with its subtasks as bullets under it. The API rejects
 a filter with commas, so each comma-separated part runs on its own, in order, and a task shown
-by an earlier part isn't repeated. Reads only; needs TODOIST_TOKEN.
+by an earlier part isn't repeated.
+
+`--timeblocks [day]` prints that day's time blocks as the `# Today` section of glance's tasks.md
+(or JSON with `--json`): tasks with a time and a duration, the work calendar's Busy slots, and
+titled calendar events. Blocks that overlap are refused, as glance refuses them.
+
+Reads only; needs TODOIST_TOKEN.
 """
 
 from __future__ import annotations
@@ -16,7 +22,8 @@ import urllib.parse
 import urllib.request
 from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, time, timedelta
+from itertools import combinations
 from typing import Any
 
 FILTERS = {
@@ -27,12 +34,27 @@ FILTERS = {
 }
 API = "https://api.todoist.com/api/v1"
 PRIORITY = {4: "p1", 3: "p2", 2: "p3"}  # the API counts up to 4 = p1; p4 (1) isn't shown
+# The work calendar reaches Todoist titled only Busy, Tentative or Free. Only Busy blocks the
+# day; the owner plans over the other two. Any other title is an "event".
+HIDDEN_EVENTS = {"Tentative", "Free"}
+# Google's copy of my Todoist tasks: the tasks themselves are already in. The real one isn't
+# flagged `is_task_calendar`, so it's known by name too.
+TASK_CALENDAR = "Todoist"
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="todoist", description=__doc__)
     parser.add_argument("filter", nargs="?", default="queue", choices=FILTERS, help="saved filter")
     parser.add_argument("--query", help="an ad-hoc Todoist filter instead of a saved one")
+    parser.add_argument(
+        "--timeblocks",
+        nargs="?",
+        const=datetime.now(UTC).astimezone().date(),
+        type=date.fromisoformat,
+        metavar="YYYY-MM-DD",
+        help="a day's time blocks as glance's # Today section (default today)",
+    )
+    parser.add_argument("--json", action="store_true", help="with --timeblocks: JSON instead")
     return parser
 
 
@@ -110,20 +132,150 @@ def bullets(parent_id: str, children: dict[str, list[Task]], depth: int) -> list
     return lines
 
 
+# ---- Time blocks ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class TimeBlock:
+    start: datetime  # local
+    end: datetime
+    what: str
+    kind: str  # "task", "busy" or "event"
+
+
+def task_block(raw: dict[str, Any]) -> TimeBlock | None:
+    """Only a task with a time of day and a duration in minutes takes up time on the day."""
+    due, duration = raw.get("due"), raw.get("duration")
+    if not due or "T" not in due["date"] or not duration or duration["unit"] != "minute":
+        return None
+    start = local(due["date"])
+    return TimeBlock(start, start + timedelta(minutes=duration["amount"]), raw["content"], "task")
+
+
+def event_block(raw: dict[str, Any]) -> TimeBlock | None:
+    what, start, end = raw["summary"], raw["start"]["date_time"], raw["end"]["date_time"]
+    if what in HIDDEN_EVENTS or not start:  # an all-day event has a date, not a time
+        return None
+    return TimeBlock(local(start), local(end), what, "busy" if what == "Busy" else "event")
+
+
+def local(moment: str) -> datetime:
+    """Todoist's floating times are already local; the rest carry their zone."""
+    return datetime.fromisoformat(moment).astimezone()
+
+
+def plan(day: date, blocks: Iterable[TimeBlock | None]) -> dict[str, Any]:
+    """Like glance's Plan: the day's blocks by start, in local `HH:MM`. One from the day before is
+    left out and one past midnight ends at 23:59, as glance's do."""
+    on_day = [block for block in blocks if block and block.start.date() == day]
+    in_order = sorted(merge_busy(on_day), key=lambda block: (block.start, block.end))
+    return {"day": day.isoformat(), "blocks": [shape(block, day) for block in in_order]}
+
+
+def merge_busy(blocks: list[TimeBlock]) -> list[TimeBlock]:
+    """The work calendar double-books, and busy is busy: overlapping Busy slots become one,
+    `Busy x 2`. Touching ones don't overlap, as glance counts it, so they stay apart."""
+    groups: list[list[TimeBlock]] = []
+    for block in sorted((block for block in blocks if block.kind == "busy"), key=lambda b: b.start):
+        if groups and block.start < max(other.end for other in groups[-1]):
+            groups[-1].append(block)
+        else:
+            groups.append([block])
+    busy = [
+        TimeBlock(group[0].start, max(b.end for b in group), busy_title(len(group)), "busy")
+        for group in groups
+    ]
+    return [*(block for block in blocks if block.kind != "busy"), *busy]
+
+
+def busy_title(slots: int) -> str:
+    return "Busy" if slots == 1 else f"Busy x {slots}"
+
+
+def shape(block: TimeBlock, day: date) -> dict[str, str]:
+    end = f"{block.end:%H:%M}" if block.end.date() == day else "23:59"
+    what = " ".join(block.what.split())  # one line in tasks.md, spaced as glance reads it
+    return {"start": f"{block.start:%H:%M}", "end": end, "what": what, "kind": block.kind}
+
+
+def timeline(day_plan: dict[str, Any], as_json: bool) -> str:
+    """glance's `# Today` section, or the plan as JSON. Overlapping blocks print no plan: glance
+    would refuse it, so they're fixed in Todoist first."""
+    clashing = clashes(day_plan["blocks"])
+    if clashing:
+        raise SystemExit("\n".join(["These blocks overlap: fix them in Todoist.", *clashing]))
+    if as_json:
+        return json.dumps(day_plan, ensure_ascii=False, indent=2) + "\n"
+    lines = [f"- {line(block)}" for block in day_plan["blocks"]]
+    return "\n".join([f"# Today {day_plan['day']}", *lines]) + "\n"
+
+
+def clashes(blocks: list[dict[str, str]]) -> list[str]:
+    """As glance counts it: one ending as the next starts doesn't overlap. `HH:MM` sorts as text."""
+    pairs = combinations(blocks, 2)
+    return [
+        f"{line(one)}  overlaps  {line(other)}"
+        for one, other in pairs
+        if one["start"] < other["end"] and other["start"] < one["end"]
+    ]
+
+
+def line(block: dict[str, str]) -> str:
+    """`14:00-15:30 PR reviews`, as tasks.md has it."""
+    return f"{block['start']}-{block['end']} {block['what']}"
+
+
 # ---- The API -------------------------------------------------------------------------------
 
 
 def fetch(token: str, path: str, params: dict[str, str]) -> list[Task]:
-    """Every page of a task listing."""
-    tasks: list[Task] = []
+    return [parse_task(raw) for raw in pages(token, path, params)]
+
+
+def pages(token: str, path: str, params: dict[str, str], key: str = "results") -> list[Any]:
+    """Every page of a listing."""
+    found: list[Any] = []
     cursor = ""
     while True:
-        query = {**params, "limit": "200", **({"cursor": cursor} if cursor else {})}
+        query = {**params, "limit": "200"}
+        if cursor:
+            query["cursor"] = cursor
         page = get(token, f"{API}{path}?{urllib.parse.urlencode(query)}")
-        tasks += [parse_task(raw) for raw in page["results"]]
+        found += page[key]
         cursor = page.get("next_cursor") or ""
         if not cursor:
-            return tasks
+            return found
+
+
+def day_blocks(token: str, day: date) -> list[TimeBlock | None]:
+    """The calendar endpoints aren't in Todoist's API docs: they're what its own apps use. If
+    they break, read Google Calendar directly: Todoist gets them from there, Outlook's feed too."""
+    tasks = pages(token, "/tasks/filter", {"query": day.isoformat()})
+    span = {"start_datetime": midnight(day), "end_datetime": midnight(day + timedelta(days=1))}
+    events = [
+        event
+        for calendar in calendar_ids(token)
+        for event in pages(token, "/calendar/events", {**span, "calendar_id": calendar}, "events")
+    ]
+    return [*map(task_block, tasks), *map(event_block, events)]
+
+
+def calendar_ids(token: str) -> list[str]:
+    ids: list[str] = []
+    for account in get(token, f"{API}/calendar/accounts")["accounts"]:
+        path = f"{API}/calendar/accounts/{account['id']}/calendars"
+        ids += [calendar["id"] for calendar in get(token, path)["calendars"] if shown(calendar)]
+    return ids
+
+
+def shown(calendar: dict[str, Any]) -> bool:
+    tasks = calendar["is_task_calendar"] or calendar["summary"] == TASK_CALENDAR
+    return bool(calendar["is_visible"]) and not tasks
+
+
+def midnight(day: date) -> str:
+    """The start of a local day, in UTC, as the calendar endpoint wants it."""
+    return f"{datetime.combine(day, time()).astimezone(UTC):%Y-%m-%dT%H:%M:%SZ}"
 
 
 def get(token: str, url: str) -> dict[str, Any]:
@@ -142,12 +294,21 @@ def main(argv: list[str] | None = None) -> int:
     token = os.environ.get("TODOIST_TOKEN")
     if not token:
         raise SystemExit("set TODOIST_TOKEN to your Todoist API token")
-    query = args.query or FILTERS[args.filter]
-    title = "Tasks" if args.query else args.filter.capitalize()
-    parts = [fetch(token, "/tasks/filter", {"query": part}) for part in split_query(query)]
-    markdown = render(title, parts, fetch(token, "/tasks", {}))
-    sys.stdout.buffer.write(markdown.encode("utf-8"))  # Windows pipes default to cp1252: emoji
+    if args.timeblocks:
+        text = timeline(plan(args.timeblocks, day_blocks(token, args.timeblocks)), args.json)
+    else:  # --json has no Markdown counterpart here, so it's ignored
+        text = markdown(token, args.filter, args.query)
+    sys.stdout.buffer.write(text.encode("utf-8"))  # Windows pipes default to cp1252: emoji
     return 0
+
+
+def markdown(token: str, saved: str, query: str | None) -> str:
+    title = "Tasks" if query else saved.capitalize()
+    parts = [
+        fetch(token, "/tasks/filter", {"query": part})
+        for part in split_query(query or FILTERS[saved])
+    ]
+    return render(title, parts, fetch(token, "/tasks", {}))
 
 
 if __name__ == "__main__":

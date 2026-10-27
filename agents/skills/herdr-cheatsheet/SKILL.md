@@ -8,6 +8,7 @@ description: The owner's conventions for herdr - long-term agents vs helpers, sp
 How to drive herdr: run `herdr --skill` once per session and follow it. On top of that:
 
 - **Long-term agents** (assistant, chief, project leads): message them with agent-mail, never `herdr agent prompt`.
+- **No mailbox? Reach the owner through the assistant**: when you've finished something the owner is waiting on, or you need them, run `herdr agent prompt assistant "[from <your name>] <one or two sentences>"`, without `--wait`. Put anything long in a file and give its path. The assistant passes it to the owner; don't use glance or Todoist yourself. If `assistant` isn't found, use the claude pane in workspace `wA` from `herdr agent list`.
 - **Helpers**: only when the owner asks. Open one beside your pane, name it `<you>-<name>`, and stop it when you're done.
 - **Spaces**: the chief may create workspaces without being asked each time (this overrides herdr's default). Label = agent name, `--env AGENT_NAME=<name> --env AGENTS_HOME=C:\agents`, then `herdr agent start <name> --kind claude --pane <id> -- --agent <name>`. It needs an agent in `~/.claude/agents/` with that `name:` (or claude exits) and a mailbox (`agent_mail.py add-box <name>`).
 - **`lead` tab**: label the tab holding a long-term agent `lead` (`herdr tab rename <tab> lead`); other tabs are for helpers, servers and the owner. A name is lost when an agent restarts outside `agent start`, so find it by workspace + `lead` tab and `herdr agent rename <pane> <name>`.
